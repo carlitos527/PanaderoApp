@@ -19,12 +19,12 @@ namespace PanaderoApp.Forms
         }
         private void FrmMenuPrincipal_Load(object sender, EventArgs e)
         {
-            btnIngredientes.IconChar = IconChar.Carrot; // O usa otro icono que prefieras
+            btnIngredientes.IconChar = IconChar.Warehouse; // O usa otro icono que prefieras
             btnIngredientes.IconColor = Color.Black;
             btnIngredientes.IconSize = 32;
             btnIngredientes.TextImageRelation = TextImageRelation.ImageBeforeText;
 
-            btnStockMovimientos.IconChar = IconChar.Carrot; // O usa otro icono que prefieras
+            btnStockMovimientos.IconChar = IconChar.BoxOpen; // O usa otro icono que prefieras
             btnStockMovimientos.IconColor = Color.Black;
             btnStockMovimientos.IconSize = 32;
             btnStockMovimientos.TextImageRelation = TextImageRelation.ImageBeforeText;

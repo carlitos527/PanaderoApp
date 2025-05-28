@@ -25,7 +25,7 @@ namespace PanaderoApp.Forms
             // 
             // btnIngredientes
             // 
-            this.btnIngredientes.IconChar = FontAwesome.Sharp.IconChar.Carrot;
+            this.btnIngredientes.IconChar = FontAwesome.Sharp.IconChar.Warehouse;
             this.btnIngredientes.IconColor = System.Drawing.Color.Black;
             this.btnIngredientes.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnIngredientes.IconSize = 32;
@@ -40,7 +40,7 @@ namespace PanaderoApp.Forms
             // 
             // btnStockMovimientos
             // 
-            this.btnStockMovimientos.IconChar = FontAwesome.Sharp.IconChar.BoxOpen;
+            this.btnStockMovimientos.IconChar = FontAwesome.Sharp.IconChar.ExchangeAlt;
             this.btnStockMovimientos.IconColor = System.Drawing.Color.Black;
             this.btnStockMovimientos.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnStockMovimientos.IconSize = 32;
