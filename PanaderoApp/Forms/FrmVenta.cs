@@ -24,17 +24,27 @@ namespace PanaderoApp.Forms
 
         private void CargarProductos()
         {
-            // Simulación de productos (reemplazar por llamada a base o controlador real)
-            productos = new List<Producto>
+            try
             {
-                new Producto { Id = 1, Nombre = "Pan", Precio = 10m },
-                new Producto { Id = 2, Nombre = "Bolillo", Precio = 8m },
-                new Producto { Id = 3, Nombre = "Concha", Precio = 12m }
-            };
+                var controller = new ProductosController();
+                var productosDesdeBD = controller.ObtenerTodos(); // Esto trae la lista desde la base de datos
 
-            dgvProductos.DataSource = productos;
-            dgvProductos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                productos = productosDesdeBD.Select(p => new Producto
+                {
+                    Id = p.Id,
+                    Nombre = p.Nombre,
+                    Precio = p.PrecioVenta
+                }).ToList();
+
+                dgvProductos.DataSource = productos;
+                dgvProductos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar productos: " + ex.Message);
+            }
         }
+
 
         private void InicializarGrids()
         {
