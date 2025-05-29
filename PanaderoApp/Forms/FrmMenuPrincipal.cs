@@ -54,5 +54,12 @@ namespace PanaderoApp.Forms
             frmProveedores.ShowDialog();
 
         }
+
+        private void Recetas_Click(object sender, EventArgs e)
+        {
+            FrmRecetas frmRecetas = new FrmRecetas();
+            frmRecetas.ShowDialog();
+
+        }
     }
 }

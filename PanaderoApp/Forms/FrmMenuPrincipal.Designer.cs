@@ -1,4 +1,7 @@
 ﻿using FontAwesome.Sharp;
+using System.Windows.Controls;
+using System.Windows.Forms;
+
 
 namespace PanaderoApp.Forms
 {
@@ -8,6 +11,7 @@ namespace PanaderoApp.Forms
         private IconButton btnClientes;
         private IconButton btnProductos;
         private IconButton btnProveedores;
+        private IconButton btnRecetas;
         private IconButton btnIngredientes; // Agregado
 
         protected override void Dispose(bool disposing)
@@ -21,10 +25,13 @@ namespace PanaderoApp.Forms
 
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnClientes = new FontAwesome.Sharp.IconButton();
             this.btnIngredientes = new FontAwesome.Sharp.IconButton();
             this.btnProductos = new FontAwesome.Sharp.IconButton();
             this.btnProveedores = new FontAwesome.Sharp.IconButton();
+            this.btnRecetas = new FontAwesome.Sharp.IconButton();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // btnClientes
@@ -34,7 +41,7 @@ namespace PanaderoApp.Forms
             this.btnClientes.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnClientes.IconSize = 32;
             this.btnClientes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClientes.Location = new System.Drawing.Point(94, 68);
+            this.btnClientes.Location = new System.Drawing.Point(42, 67);
             this.btnClientes.Name = "btnClientes";
             this.btnClientes.Size = new System.Drawing.Size(156, 80);
             this.btnClientes.TabIndex = 0;
@@ -50,7 +57,7 @@ namespace PanaderoApp.Forms
             this.btnIngredientes.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnIngredientes.IconSize = 32;
             this.btnIngredientes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnIngredientes.Location = new System.Drawing.Point(378, 68);
+            this.btnIngredientes.Location = new System.Drawing.Point(249, 67);
             this.btnIngredientes.Name = "btnIngredientes";
             this.btnIngredientes.Size = new System.Drawing.Size(187, 80);
             this.btnIngredientes.TabIndex = 1;
@@ -66,7 +73,7 @@ namespace PanaderoApp.Forms
             this.btnProductos.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnProductos.IconSize = 32;
             this.btnProductos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnProductos.Location = new System.Drawing.Point(94, 219);
+            this.btnProductos.Location = new System.Drawing.Point(42, 217);
             this.btnProductos.Name = "btnProductos";
             this.btnProductos.Size = new System.Drawing.Size(156, 62);
             this.btnProductos.TabIndex = 2;
@@ -84,7 +91,7 @@ namespace PanaderoApp.Forms
             this.btnProveedores.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnProveedores.IconSize = 36;
             this.btnProveedores.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnProveedores.Location = new System.Drawing.Point(381, 213);
+            this.btnProveedores.Location = new System.Drawing.Point(249, 213);
             this.btnProveedores.Name = "btnProveedores";
             this.btnProveedores.Size = new System.Drawing.Size(184, 68);
             this.btnProveedores.TabIndex = 3;
@@ -93,11 +100,36 @@ namespace PanaderoApp.Forms
             this.btnProveedores.UseVisualStyleBackColor = true;
             this.btnProveedores.Click += new System.EventHandler(this.Proveedores_Click);
             // 
+            // btnRecetas
+            // 
+            this.btnRecetas.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRecetas.FlatAppearance.BorderColor = System.Drawing.Color.MidnightBlue;
+            this.btnRecetas.FlatAppearance.MouseDownBackColor = System.Drawing.Color.SlateBlue;
+            this.btnRecetas.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSteelBlue;
+            this.btnRecetas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRecetas.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.btnRecetas.IconChar = FontAwesome.Sharp.IconChar.BookOpen;
+            this.btnRecetas.IconColor = System.Drawing.Color.MidnightBlue;
+            this.btnRecetas.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnRecetas.IconSize = 40;
+            this.btnRecetas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnRecetas.Location = new System.Drawing.Point(493, 67);
+            this.btnRecetas.Name = "btnRecetas";
+            this.btnRecetas.Padding = new System.Windows.Forms.Padding(15, 0, 20, 0);
+            this.btnRecetas.Size = new System.Drawing.Size(220, 80);
+            this.btnRecetas.TabIndex = 4;
+            this.btnRecetas.Text = "Formulación de Productos";
+            this.btnRecetas.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolTip.SetToolTip(this.btnRecetas, "Abrir formulario para gestionar la formulación de productos y recetas.");
+            this.btnRecetas.UseVisualStyleBackColor = true;
+            this.btnRecetas.Click += new System.EventHandler(this.Recetas_Click);
+            // 
             // FrmMenuPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnRecetas);
             this.Controls.Add(this.btnProveedores);
             this.Controls.Add(this.btnProductos);
             this.Controls.Add(this.btnIngredientes);
@@ -109,7 +141,9 @@ namespace PanaderoApp.Forms
 
         }
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+       // private System.Windows.Forms.Button button1;
+        //private System.Windows.Forms.Button button2;
+        //private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }

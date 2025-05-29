@@ -42,81 +42,110 @@
             this.dgvProveedores = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProveedores)).BeginInit();
             this.SuspendLayout();
-
+            // 
             // txtId
+            // 
             this.txtId.Location = new System.Drawing.Point(100, 20);
             this.txtId.Name = "txtId";
             this.txtId.ReadOnly = true;
-            this.txtId.Size = new System.Drawing.Size(100, 20);
-
+            this.txtId.Size = new System.Drawing.Size(56, 20);
+            this.txtId.TabIndex = 0;
+            // 
             // txtNombre
+            // 
             this.txtNombre.Location = new System.Drawing.Point(100, 50);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(200, 20);
-
+            this.txtNombre.TabIndex = 1;
+            // 
             // txtTelefono
+            // 
             this.txtTelefono.Location = new System.Drawing.Point(100, 80);
             this.txtTelefono.Name = "txtTelefono";
             this.txtTelefono.Size = new System.Drawing.Size(200, 20);
-
+            this.txtTelefono.TabIndex = 2;
+            // 
             // txtCorreo
+            // 
             this.txtCorreo.Location = new System.Drawing.Point(100, 110);
             this.txtCorreo.Name = "txtCorreo";
             this.txtCorreo.Size = new System.Drawing.Size(200, 20);
-
+            this.txtCorreo.TabIndex = 3;
+            // 
             // lblId
+            // 
             this.lblId.AutoSize = true;
             this.lblId.Location = new System.Drawing.Point(20, 23);
             this.lblId.Name = "lblId";
+            this.lblId.Size = new System.Drawing.Size(21, 13);
+            this.lblId.TabIndex = 4;
             this.lblId.Text = "ID:";
-
+            // 
             // lblNombre
+            // 
             this.lblNombre.AutoSize = true;
             this.lblNombre.Location = new System.Drawing.Point(20, 53);
             this.lblNombre.Name = "lblNombre";
+            this.lblNombre.Size = new System.Drawing.Size(47, 13);
+            this.lblNombre.TabIndex = 5;
             this.lblNombre.Text = "Nombre:";
-
+            // 
             // lblTelefono
+            // 
             this.lblTelefono.AutoSize = true;
             this.lblTelefono.Location = new System.Drawing.Point(20, 83);
             this.lblTelefono.Name = "lblTelefono";
+            this.lblTelefono.Size = new System.Drawing.Size(52, 13);
+            this.lblTelefono.TabIndex = 6;
             this.lblTelefono.Text = "Teléfono:";
-
+            // 
             // lblCorreo
+            // 
             this.lblCorreo.AutoSize = true;
             this.lblCorreo.Location = new System.Drawing.Point(20, 113);
             this.lblCorreo.Name = "lblCorreo";
+            this.lblCorreo.Size = new System.Drawing.Size(41, 13);
+            this.lblCorreo.TabIndex = 7;
             this.lblCorreo.Text = "Correo:";
-
+            // 
             // btnAgregar
+            // 
             this.btnAgregar.Location = new System.Drawing.Point(320, 50);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(75, 23);
+            this.btnAgregar.TabIndex = 8;
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
-
+            // 
             // btnActualizar
+            // 
             this.btnActualizar.Location = new System.Drawing.Point(320, 80);
             this.btnActualizar.Name = "btnActualizar";
             this.btnActualizar.Size = new System.Drawing.Size(75, 23);
+            this.btnActualizar.TabIndex = 9;
             this.btnActualizar.Text = "Actualizar";
             this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
-
+            // 
             // btnEliminar
+            // 
             this.btnEliminar.Location = new System.Drawing.Point(320, 110);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(75, 23);
+            this.btnEliminar.TabIndex = 10;
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
-
+            // 
             // dgvProveedores
+            // 
             this.dgvProveedores.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvProveedores.Location = new System.Drawing.Point(20, 150);
             this.dgvProveedores.Name = "dgvProveedores";
             this.dgvProveedores.Size = new System.Drawing.Size(600, 200);
+            this.dgvProveedores.TabIndex = 11;
             this.dgvProveedores.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProveedores_CellClick);
-
+            // 
             // FrmProveedores
+            // 
             this.ClientSize = new System.Drawing.Size(650, 370);
             this.Controls.Add(this.txtId);
             this.Controls.Add(this.txtNombre);
@@ -135,6 +164,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvProveedores)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
     }
 }

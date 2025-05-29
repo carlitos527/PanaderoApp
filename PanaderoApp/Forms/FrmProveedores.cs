@@ -19,6 +19,7 @@ namespace PanaderoApp.Forms
         private void CargarProveedores()
         {
             dgvProveedores.DataSource = controller.ObtenerTodos();
+            dgvProveedores.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
