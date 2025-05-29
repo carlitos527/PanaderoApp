@@ -57,6 +57,8 @@
     <Compile Include="Class\PasswordHelper.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\IngredienteController.cs" />
+    <Compile Include="Controllers\ProductosController.cs" />
+    <Compile Include="Controllers\ProveedoresController.cs" />
     <Compile Include="Controllers\StockMovimientosController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Forms\AggUsuario.cs">
@@ -95,6 +97,18 @@
     <Compile Include="Forms\FrmMenuPrincipal.Designer.cs">
       <DependentUpon>FrmMenuPrincipal.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FrmProductos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmProductos.Designer.cs">
+      <DependentUpon>FrmProductos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmProveedores.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmProveedores.Designer.cs">
+      <DependentUpon>FrmProveedores.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FrmStockMovimientos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,6 +129,8 @@
     </Compile>
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\Ingrediente.cs" />
+    <Compile Include="Models\Productos.cs" />
+    <Compile Include="Models\Proveedores.cs" />
     <Compile Include="Models\StockActualDto.cs" />
     <Compile Include="Models\StockMovimiento.cs" />
     <Compile Include="Models\Usuario.cs" />
@@ -131,6 +147,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmMenuPrincipal.resx">
       <DependentUpon>FrmMenuPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmProveedores.resx">
+      <DependentUpon>FrmProveedores.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmStockMovimientos.resx">
       <DependentUpon>FrmStockMovimientos.cs</DependentUpon>

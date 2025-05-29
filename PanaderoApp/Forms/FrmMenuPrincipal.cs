@@ -40,5 +40,19 @@ namespace PanaderoApp.Forms
             
 
         }
+
+        private void Productos_Click(object sender, EventArgs e)
+        {
+            FrmProductos frmProductos = new FrmProductos();
+            frmProductos.ShowDialog();
+
+        }
+
+        private void Proveedores_Click(object sender, EventArgs e)
+        {
+            FrmProveedores frmProveedores = new FrmProveedores();
+            frmProveedores.ShowDialog();
+
+        }
     }
 }
