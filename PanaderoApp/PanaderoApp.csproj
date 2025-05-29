@@ -62,6 +62,8 @@
     <Compile Include="Controllers\RecetasController.cs" />
     <Compile Include="Controllers\StockMovimientosController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="Controllers\VentasController.cs" />
+    <Compile Include="Controllers\VentasFacController.cs" />
     <Compile Include="Forms\AggUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -128,6 +130,18 @@
     <Compile Include="Forms\FrmUsuarios.Designer.cs">
       <DependentUpon>FrmUsuarios.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FrmVenta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmVenta.Designer.cs">
+      <DependentUpon>FrmVenta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmVentasFac.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmVentasFac.Designer.cs">
+      <DependentUpon>FrmVentasFac.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\IniciarSesion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -135,6 +149,7 @@
       <DependentUpon>IniciarSesion.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Cliente.cs" />
+    <Compile Include="Models\VentasFac.cs" />
     <Compile Include="Models\Ingrediente.cs" />
     <Compile Include="Models\Productos.cs" />
     <Compile Include="Models\Proveedores.cs" />
@@ -142,6 +157,7 @@
     <Compile Include="Models\StockActualDto.cs" />
     <Compile Include="Models\StockMovimiento.cs" />
     <Compile Include="Models\Usuario.cs" />
+    <Compile Include="Models\Ventas.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\FrmClientes.resx">
@@ -164,6 +180,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmStockMovimientos.resx">
       <DependentUpon>FrmStockMovimientos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmVenta.resx">
+      <DependentUpon>FrmVenta.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

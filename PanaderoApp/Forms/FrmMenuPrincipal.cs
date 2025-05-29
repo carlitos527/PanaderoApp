@@ -61,5 +61,18 @@ namespace PanaderoApp.Forms
             frmRecetas.ShowDialog();
 
         }
+
+        private void Vender_Click(object sender, EventArgs e)
+        {
+            FrmVenta frmVenta = new FrmVenta();
+            frmVenta.ShowDialog();
+
+        }
+
+        private void Facturas_Click(object sender, EventArgs e)
+        {
+            FrmVentasFac frmVentasFac = new FrmVentasFac();
+            frmVentasFac.ShowDialog();
+        }
     }
 }
