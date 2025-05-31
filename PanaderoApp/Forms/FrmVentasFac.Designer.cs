@@ -34,6 +34,7 @@
 
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmVentasFac));
             this.dgvVentasFac = new System.Windows.Forms.DataGridView();
             this.txtId = new System.Windows.Forms.TextBox();
             this.txtVentaId = new System.Windows.Forms.TextBox();
@@ -48,54 +49,62 @@
             this.btnNuevo = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVentasFac)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvVentasFac
             // 
             this.dgvVentasFac.AllowUserToAddRows = false;
             this.dgvVentasFac.AllowUserToDeleteRows = false;
+            this.dgvVentasFac.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvVentasFac.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dgvVentasFac.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvVentasFac.Location = new System.Drawing.Point(12, 12);
+            this.dgvVentasFac.Location = new System.Drawing.Point(28, 19);
             this.dgvVentasFac.Name = "dgvVentasFac";
             this.dgvVentasFac.ReadOnly = true;
             this.dgvVentasFac.RowHeadersWidth = 51;
             this.dgvVentasFac.RowTemplate.Height = 24;
-            this.dgvVentasFac.Size = new System.Drawing.Size(600, 200);
+            this.dgvVentasFac.Size = new System.Drawing.Size(650, 410);
             this.dgvVentasFac.TabIndex = 0;
             // 
             // txtId
             // 
-            this.txtId.Location = new System.Drawing.Point(120, 230);
+            this.txtId.Location = new System.Drawing.Point(81, 16);
             this.txtId.Name = "txtId";
             this.txtId.ReadOnly = true;
-            this.txtId.Size = new System.Drawing.Size(100, 22);
+            this.txtId.Size = new System.Drawing.Size(52, 22);
             this.txtId.TabIndex = 1;
             // 
             // txtVentaId
             // 
-            this.txtVentaId.Location = new System.Drawing.Point(120, 270);
+            this.txtVentaId.Location = new System.Drawing.Point(170, 63);
             this.txtVentaId.Name = "txtVentaId";
             this.txtVentaId.Size = new System.Drawing.Size(100, 22);
             this.txtVentaId.TabIndex = 2;
             // 
             // txtProductoId
             // 
-            this.txtProductoId.Location = new System.Drawing.Point(120, 310);
+            this.txtProductoId.Location = new System.Drawing.Point(170, 111);
             this.txtProductoId.Name = "txtProductoId";
             this.txtProductoId.Size = new System.Drawing.Size(100, 22);
             this.txtProductoId.TabIndex = 3;
             // 
             // txtCantidad
             // 
-            this.txtCantidad.Location = new System.Drawing.Point(120, 350);
+            this.txtCantidad.Location = new System.Drawing.Point(170, 179);
             this.txtCantidad.Name = "txtCantidad";
             this.txtCantidad.Size = new System.Drawing.Size(100, 22);
             this.txtCantidad.TabIndex = 4;
             // 
             // txtPrecioUnitario
             // 
-            this.txtPrecioUnitario.Location = new System.Drawing.Point(120, 390);
+            this.txtPrecioUnitario.Location = new System.Drawing.Point(170, 246);
             this.txtPrecioUnitario.Name = "txtPrecioUnitario";
             this.txtPrecioUnitario.Size = new System.Drawing.Size(100, 22);
             this.txtPrecioUnitario.TabIndex = 5;
@@ -103,51 +112,56 @@
             // lblId
             // 
             this.lblId.AutoSize = true;
-            this.lblId.Location = new System.Drawing.Point(30, 233);
+            this.lblId.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblId.Location = new System.Drawing.Point(43, 19);
             this.lblId.Name = "lblId";
-            this.lblId.Size = new System.Drawing.Size(21, 17);
+            this.lblId.Size = new System.Drawing.Size(32, 18);
             this.lblId.TabIndex = 6;
-            this.lblId.Text = "ID";
+            this.lblId.Text = "ID :";
             // 
             // lblVentaId
             // 
             this.lblVentaId.AutoSize = true;
-            this.lblVentaId.Location = new System.Drawing.Point(30, 273);
+            this.lblVentaId.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblVentaId.Location = new System.Drawing.Point(43, 69);
             this.lblVentaId.Name = "lblVentaId";
-            this.lblVentaId.Size = new System.Drawing.Size(68, 17);
+            this.lblVentaId.Size = new System.Drawing.Size(76, 18);
             this.lblVentaId.TabIndex = 7;
-            this.lblVentaId.Text = "Venta ID";
+            this.lblVentaId.Text = "Venta ID :";
             // 
             // lblProductoId
             // 
             this.lblProductoId.AutoSize = true;
-            this.lblProductoId.Location = new System.Drawing.Point(30, 313);
+            this.lblProductoId.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblProductoId.Location = new System.Drawing.Point(43, 117);
             this.lblProductoId.Name = "lblProductoId";
-            this.lblProductoId.Size = new System.Drawing.Size(85, 17);
+            this.lblProductoId.Size = new System.Drawing.Size(98, 18);
             this.lblProductoId.TabIndex = 8;
-            this.lblProductoId.Text = "Producto ID";
+            this.lblProductoId.Text = "Producto ID :";
             // 
             // lblCantidad
             // 
             this.lblCantidad.AutoSize = true;
-            this.lblCantidad.Location = new System.Drawing.Point(30, 353);
+            this.lblCantidad.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblCantidad.Location = new System.Drawing.Point(46, 183);
             this.lblCantidad.Name = "lblCantidad";
-            this.lblCantidad.Size = new System.Drawing.Size(65, 17);
+            this.lblCantidad.Size = new System.Drawing.Size(79, 18);
             this.lblCantidad.TabIndex = 9;
-            this.lblCantidad.Text = "Cantidad";
+            this.lblCantidad.Text = "Cantidad :";
             // 
             // lblPrecioUnitario
             // 
             this.lblPrecioUnitario.AutoSize = true;
-            this.lblPrecioUnitario.Location = new System.Drawing.Point(30, 393);
+            this.lblPrecioUnitario.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblPrecioUnitario.Location = new System.Drawing.Point(43, 250);
             this.lblPrecioUnitario.Name = "lblPrecioUnitario";
-            this.lblPrecioUnitario.Size = new System.Drawing.Size(101, 17);
+            this.lblPrecioUnitario.Size = new System.Drawing.Size(120, 18);
             this.lblPrecioUnitario.TabIndex = 10;
-            this.lblPrecioUnitario.Text = "Precio Unitario";
+            this.lblPrecioUnitario.Text = "Precio Unitario :";
             // 
             // btnNuevo
             // 
-            this.btnNuevo.Location = new System.Drawing.Point(350, 230);
+            this.btnNuevo.Location = new System.Drawing.Point(12, 327);
             this.btnNuevo.Name = "btnNuevo";
             this.btnNuevo.Size = new System.Drawing.Size(90, 30);
             this.btnNuevo.TabIndex = 11;
@@ -157,7 +171,7 @@
             // 
             // btnGuardar
             // 
-            this.btnGuardar.Location = new System.Drawing.Point(350, 280);
+            this.btnGuardar.Location = new System.Drawing.Point(130, 327);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(90, 30);
             this.btnGuardar.TabIndex = 12;
@@ -167,7 +181,7 @@
             // 
             // btnEliminar
             // 
-            this.btnEliminar.Location = new System.Drawing.Point(350, 330);
+            this.btnEliminar.Location = new System.Drawing.Point(29, 374);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(90, 30);
             this.btnEliminar.TabIndex = 13;
@@ -175,31 +189,57 @@
             this.btnEliminar.UseVisualStyleBackColor = true;
             this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.lblId);
+            this.panel1.Controls.Add(this.btnEliminar);
+            this.panel1.Controls.Add(this.txtId);
+            this.panel1.Controls.Add(this.btnGuardar);
+            this.panel1.Controls.Add(this.txtVentaId);
+            this.panel1.Controls.Add(this.btnNuevo);
+            this.panel1.Controls.Add(this.lblVentaId);
+            this.panel1.Controls.Add(this.txtPrecioUnitario);
+            this.panel1.Controls.Add(this.lblPrecioUnitario);
+            this.panel1.Controls.Add(this.lblProductoId);
+            this.panel1.Controls.Add(this.lblCantidad);
+            this.panel1.Controls.Add(this.txtCantidad);
+            this.panel1.Controls.Add(this.txtProductoId);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(286, 441);
+            this.panel1.TabIndex = 14;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.dgvVentasFac);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(286, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(690, 441);
+            this.panel2.TabIndex = 15;
+            // 
             // FrmVentasFac
             // 
-            this.ClientSize = new System.Drawing.Size(624, 441);
-            this.Controls.Add(this.btnEliminar);
-            this.Controls.Add(this.btnGuardar);
-            this.Controls.Add(this.btnNuevo);
-            this.Controls.Add(this.lblPrecioUnitario);
-            this.Controls.Add(this.lblCantidad);
-            this.Controls.Add(this.lblProductoId);
-            this.Controls.Add(this.lblVentaId);
-            this.Controls.Add(this.lblId);
-            this.Controls.Add(this.txtPrecioUnitario);
-            this.Controls.Add(this.txtCantidad);
-            this.Controls.Add(this.txtProductoId);
-            this.Controls.Add(this.txtVentaId);
-            this.Controls.Add(this.txtId);
-            this.Controls.Add(this.dgvVentasFac);
+            this.ClientSize = new System.Drawing.Size(976, 441);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panel1);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmVentasFac";
             this.Text = "Gestión de Ventas Fac";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.dgvVentasFac)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
+
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel2;
     }
 }

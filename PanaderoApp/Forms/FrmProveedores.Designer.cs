@@ -7,11 +7,9 @@
         private System.Windows.Forms.TextBox txtId;
         private System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.TextBox txtTelefono;
-        private System.Windows.Forms.TextBox txtCorreo;
         private System.Windows.Forms.Label lblId;
         private System.Windows.Forms.Label lblNombre;
         private System.Windows.Forms.Label lblTelefono;
-        private System.Windows.Forms.Label lblCorreo;
         private System.Windows.Forms.Button btnAgregar;
         private System.Windows.Forms.Button btnActualizar;
         private System.Windows.Forms.Button btnEliminar;
@@ -28,143 +26,235 @@
 
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmProveedores));
             this.txtId = new System.Windows.Forms.TextBox();
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.txtTelefono = new System.Windows.Forms.TextBox();
-            this.txtCorreo = new System.Windows.Forms.TextBox();
             this.lblId = new System.Windows.Forms.Label();
             this.lblNombre = new System.Windows.Forms.Label();
             this.lblTelefono = new System.Windows.Forms.Label();
-            this.lblCorreo = new System.Windows.Forms.Label();
             this.btnAgregar = new System.Windows.Forms.Button();
             this.btnActualizar = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
             this.dgvProveedores = new System.Windows.Forms.DataGridView();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.lblCorreo = new System.Windows.Forms.Label();
+            this.txtCorreo = new System.Windows.Forms.TextBox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProveedores)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtId
             // 
-            this.txtId.Location = new System.Drawing.Point(100, 20);
+            this.txtId.Location = new System.Drawing.Point(106, 3);
             this.txtId.Name = "txtId";
             this.txtId.ReadOnly = true;
-            this.txtId.Size = new System.Drawing.Size(56, 20);
+            this.txtId.Size = new System.Drawing.Size(48, 20);
             this.txtId.TabIndex = 0;
             // 
             // txtNombre
             // 
-            this.txtNombre.Location = new System.Drawing.Point(100, 50);
+            this.txtNombre.Location = new System.Drawing.Point(106, 45);
             this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(200, 20);
+            this.txtNombre.Size = new System.Drawing.Size(223, 20);
             this.txtNombre.TabIndex = 1;
             // 
             // txtTelefono
             // 
-            this.txtTelefono.Location = new System.Drawing.Point(100, 80);
+            this.txtTelefono.Location = new System.Drawing.Point(106, 87);
             this.txtTelefono.Name = "txtTelefono";
             this.txtTelefono.Size = new System.Drawing.Size(200, 20);
             this.txtTelefono.TabIndex = 2;
             // 
-            // txtCorreo
-            // 
-            this.txtCorreo.Location = new System.Drawing.Point(100, 110);
-            this.txtCorreo.Name = "txtCorreo";
-            this.txtCorreo.Size = new System.Drawing.Size(200, 20);
-            this.txtCorreo.TabIndex = 3;
-            // 
             // lblId
             // 
             this.lblId.AutoSize = true;
-            this.lblId.Location = new System.Drawing.Point(20, 23);
+            this.lblId.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblId.Location = new System.Drawing.Point(3, 0);
             this.lblId.Name = "lblId";
-            this.lblId.Size = new System.Drawing.Size(21, 13);
+            this.lblId.Size = new System.Drawing.Size(28, 18);
             this.lblId.TabIndex = 4;
             this.lblId.Text = "ID:";
             // 
             // lblNombre
             // 
             this.lblNombre.AutoSize = true;
-            this.lblNombre.Location = new System.Drawing.Point(20, 53);
+            this.lblNombre.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNombre.Location = new System.Drawing.Point(3, 42);
             this.lblNombre.Name = "lblNombre";
-            this.lblNombre.Size = new System.Drawing.Size(47, 13);
+            this.lblNombre.Size = new System.Drawing.Size(68, 18);
             this.lblNombre.TabIndex = 5;
             this.lblNombre.Text = "Nombre:";
             // 
             // lblTelefono
             // 
             this.lblTelefono.AutoSize = true;
-            this.lblTelefono.Location = new System.Drawing.Point(20, 83);
+            this.lblTelefono.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblTelefono.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTelefono.Location = new System.Drawing.Point(3, 84);
             this.lblTelefono.Name = "lblTelefono";
-            this.lblTelefono.Size = new System.Drawing.Size(52, 13);
+            this.lblTelefono.Size = new System.Drawing.Size(75, 18);
             this.lblTelefono.TabIndex = 6;
             this.lblTelefono.Text = "Teléfono:";
             // 
-            // lblCorreo
-            // 
-            this.lblCorreo.AutoSize = true;
-            this.lblCorreo.Location = new System.Drawing.Point(20, 113);
-            this.lblCorreo.Name = "lblCorreo";
-            this.lblCorreo.Size = new System.Drawing.Size(41, 13);
-            this.lblCorreo.TabIndex = 7;
-            this.lblCorreo.Text = "Correo:";
-            // 
             // btnAgregar
             // 
-            this.btnAgregar.Location = new System.Drawing.Point(320, 50);
+            this.btnAgregar.BackColor = System.Drawing.Color.Green;
+            this.btnAgregar.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAgregar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnAgregar.Location = new System.Drawing.Point(3, 3);
             this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(75, 23);
+            this.btnAgregar.Size = new System.Drawing.Size(84, 69);
             this.btnAgregar.TabIndex = 8;
-            this.btnAgregar.Text = "Agregar";
+            this.btnAgregar.Text = "✅";
+            this.btnAgregar.UseVisualStyleBackColor = false;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
             // btnActualizar
             // 
-            this.btnActualizar.Location = new System.Drawing.Point(320, 80);
+            this.btnActualizar.BackColor = System.Drawing.Color.SkyBlue;
+            this.btnActualizar.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnActualizar.Location = new System.Drawing.Point(93, 3);
             this.btnActualizar.Name = "btnActualizar";
-            this.btnActualizar.Size = new System.Drawing.Size(75, 23);
+            this.btnActualizar.Size = new System.Drawing.Size(84, 69);
             this.btnActualizar.TabIndex = 9;
-            this.btnActualizar.Text = "Actualizar";
+            this.btnActualizar.Text = "✏️";
+            this.btnActualizar.UseVisualStyleBackColor = false;
             this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
             // 
             // btnEliminar
             // 
-            this.btnEliminar.Location = new System.Drawing.Point(320, 110);
+            this.btnEliminar.BackColor = System.Drawing.Color.Red;
+            this.btnEliminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEliminar.Location = new System.Drawing.Point(183, 3);
             this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(75, 23);
+            this.btnEliminar.Size = new System.Drawing.Size(84, 65);
             this.btnEliminar.TabIndex = 10;
-            this.btnEliminar.Text = "Eliminar";
+            this.btnEliminar.Text = "🚮";
+            this.btnEliminar.UseVisualStyleBackColor = false;
             this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // dgvProveedores
             // 
             this.dgvProveedores.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvProveedores.Location = new System.Drawing.Point(20, 150);
+            this.dgvProveedores.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvProveedores.Location = new System.Drawing.Point(0, 0);
             this.dgvProveedores.Name = "dgvProveedores";
-            this.dgvProveedores.Size = new System.Drawing.Size(600, 200);
+            this.dgvProveedores.Size = new System.Drawing.Size(859, 271);
             this.dgvProveedores.TabIndex = 11;
             this.dgvProveedores.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProveedores_CellClick);
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.tableLayoutPanel2);
+            this.panel1.Controls.Add(this.tableLayoutPanel1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(859, 219);
+            this.panel1.TabIndex = 12;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.dgvProveedores);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(0, 219);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(859, 271);
+            this.panel2.TabIndex = 13;
+            // 
+            // lblCorreo
+            // 
+            this.lblCorreo.AutoSize = true;
+            this.lblCorreo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblCorreo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCorreo.Location = new System.Drawing.Point(3, 126);
+            this.lblCorreo.Name = "lblCorreo";
+            this.lblCorreo.Size = new System.Drawing.Size(60, 18);
+            this.lblCorreo.TabIndex = 7;
+            this.lblCorreo.Text = "Correo:";
+            // 
+            // txtCorreo
+            // 
+            this.txtCorreo.Location = new System.Drawing.Point(106, 129);
+            this.txtCorreo.Name = "txtCorreo";
+            this.txtCorreo.Size = new System.Drawing.Size(318, 20);
+            this.txtCorreo.TabIndex = 3;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 22.58883F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 77.41117F));
+            this.tableLayoutPanel1.Controls.Add(this.lblNombre, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.lblTelefono, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.lblCorreo, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.txtId, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.txtCorreo, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.lblId, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.txtTelefono, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.txtNombre, 1, 1);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(48, 30);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 4;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(456, 171);
+            this.tableLayoutPanel1.TabIndex = 12;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.tableLayoutPanel2.ColumnCount = 3;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel2.Controls.Add(this.btnActualizar, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.btnAgregar, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.btnEliminar, 2, 0);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(525, 37);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 2;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(270, 151);
+            this.tableLayoutPanel2.TabIndex = 13;
+            // 
             // FrmProveedores
             // 
-            this.ClientSize = new System.Drawing.Size(650, 370);
-            this.Controls.Add(this.txtId);
-            this.Controls.Add(this.txtNombre);
-            this.Controls.Add(this.txtTelefono);
-            this.Controls.Add(this.txtCorreo);
-            this.Controls.Add(this.lblId);
-            this.Controls.Add(this.lblNombre);
-            this.Controls.Add(this.lblTelefono);
-            this.Controls.Add(this.lblCorreo);
-            this.Controls.Add(this.btnAgregar);
-            this.Controls.Add(this.btnActualizar);
-            this.Controls.Add(this.btnEliminar);
-            this.Controls.Add(this.dgvProveedores);
+            this.ClientSize = new System.Drawing.Size(859, 490);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmProveedores";
             this.Text = "Gestión de Proveedores";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.dgvProveedores)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
+            this.tableLayoutPanel2.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
+
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.TextBox txtCorreo;
+        private System.Windows.Forms.Label lblCorreo;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }

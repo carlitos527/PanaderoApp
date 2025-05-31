@@ -19,6 +19,7 @@ namespace PanaderoApp.Forms
 
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmInventario));
             this.btnIngredientes = new FontAwesome.Sharp.IconButton();
             this.btnStockMovimientos = new FontAwesome.Sharp.IconButton();
             this.SuspendLayout();
@@ -58,10 +59,15 @@ namespace PanaderoApp.Forms
             this.ClientSize = new System.Drawing.Size(300, 220);
             this.Controls.Add(this.btnStockMovimientos);
             this.Controls.Add(this.btnIngredientes);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmInventario";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Inventario";
             this.Load += new System.EventHandler(this.FrmMenuPrincipal_Load);
             this.ResumeLayout(false);
+
         }
     }
 }

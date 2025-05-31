@@ -16,7 +16,7 @@ namespace PanaderoApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Forms.Bienvenido());
+            Application.Run(new Forms.FrmVentasFac());
         }
     }
 }

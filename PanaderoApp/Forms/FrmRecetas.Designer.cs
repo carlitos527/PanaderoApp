@@ -26,6 +26,7 @@
 
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmRecetas));
             this.dgvRecetas = new System.Windows.Forms.DataGridView();
             this.cbProductos = new System.Windows.Forms.ComboBox();
             this.cbIngredientes = new System.Windows.Forms.ComboBox();
@@ -37,7 +38,15 @@
             this.btnActualizar = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel2 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRecetas)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvRecetas
@@ -46,13 +55,14 @@
             this.dgvRecetas.AllowUserToDeleteRows = false;
             this.dgvRecetas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvRecetas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvRecetas.Location = new System.Drawing.Point(25, 163);
+            this.dgvRecetas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvRecetas.Location = new System.Drawing.Point(0, 0);
             this.dgvRecetas.MultiSelect = false;
             this.dgvRecetas.Name = "dgvRecetas";
             this.dgvRecetas.ReadOnly = true;
             this.dgvRecetas.RowHeadersVisible = false;
             this.dgvRecetas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvRecetas.Size = new System.Drawing.Size(757, 200);
+            this.dgvRecetas.Size = new System.Drawing.Size(914, 308);
             this.dgvRecetas.TabIndex = 0;
             this.dgvRecetas.SelectionChanged += new System.EventHandler(this.dgvRecetas_SelectionChanged);
             // 
@@ -60,7 +70,7 @@
             // 
             this.cbProductos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbProductos.FormattingEnabled = true;
-            this.cbProductos.Location = new System.Drawing.Point(170, 35);
+            this.cbProductos.Location = new System.Drawing.Point(117, 3);
             this.cbProductos.Name = "cbProductos";
             this.cbProductos.Size = new System.Drawing.Size(200, 21);
             this.cbProductos.TabIndex = 2;
@@ -69,14 +79,14 @@
             // 
             this.cbIngredientes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbIngredientes.FormattingEnabled = true;
-            this.cbIngredientes.Location = new System.Drawing.Point(170, 69);
+            this.cbIngredientes.Location = new System.Drawing.Point(117, 36);
             this.cbIngredientes.Name = "cbIngredientes";
             this.cbIngredientes.Size = new System.Drawing.Size(200, 21);
             this.cbIngredientes.TabIndex = 4;
             // 
             // txtCantidad
             // 
-            this.txtCantidad.Location = new System.Drawing.Point(170, 110);
+            this.txtCantidad.Location = new System.Drawing.Point(117, 69);
             this.txtCantidad.Name = "txtCantidad";
             this.txtCantidad.Size = new System.Drawing.Size(100, 20);
             this.txtCantidad.TabIndex = 6;
@@ -84,92 +94,167 @@
             // lblProducto
             // 
             this.lblProducto.AutoSize = true;
-            this.lblProducto.Location = new System.Drawing.Point(78, 43);
+            this.lblProducto.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProducto.Location = new System.Drawing.Point(3, 0);
             this.lblProducto.Name = "lblProducto";
-            this.lblProducto.Size = new System.Drawing.Size(53, 13);
+            this.lblProducto.Size = new System.Drawing.Size(75, 18);
             this.lblProducto.TabIndex = 1;
             this.lblProducto.Text = "Producto:";
             // 
             // lblIngrediente
             // 
             this.lblIngrediente.AutoSize = true;
-            this.lblIngrediente.Location = new System.Drawing.Point(78, 75);
+            this.lblIngrediente.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblIngrediente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblIngrediente.Location = new System.Drawing.Point(3, 33);
             this.lblIngrediente.Name = "lblIngrediente";
-            this.lblIngrediente.Size = new System.Drawing.Size(63, 13);
+            this.lblIngrediente.Size = new System.Drawing.Size(91, 18);
             this.lblIngrediente.TabIndex = 3;
             this.lblIngrediente.Text = "Ingrediente:";
             // 
             // lblCantidad
             // 
             this.lblCantidad.AutoSize = true;
-            this.lblCantidad.Location = new System.Drawing.Point(78, 117);
+            this.lblCantidad.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblCantidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCantidad.Location = new System.Drawing.Point(3, 66);
             this.lblCantidad.Name = "lblCantidad";
-            this.lblCantidad.Size = new System.Drawing.Size(52, 13);
+            this.lblCantidad.Size = new System.Drawing.Size(75, 18);
             this.lblCantidad.TabIndex = 5;
             this.lblCantidad.Text = "Cantidad:";
             // 
             // btnAgregar
             // 
-            this.btnAgregar.Location = new System.Drawing.Point(422, 21);
+            this.btnAgregar.BackColor = System.Drawing.Color.Green;
+            this.btnAgregar.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAgregar.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnAgregar.Location = new System.Drawing.Point(3, 3);
             this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(80, 25);
+            this.btnAgregar.Size = new System.Drawing.Size(80, 75);
             this.btnAgregar.TabIndex = 7;
-            this.btnAgregar.Text = "Agregar";
-            this.btnAgregar.UseVisualStyleBackColor = true;
+            this.btnAgregar.Text = "✅";
+            this.btnAgregar.UseVisualStyleBackColor = false;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
             // btnActualizar
             // 
-            this.btnActualizar.Location = new System.Drawing.Point(422, 69);
+            this.btnActualizar.BackColor = System.Drawing.Color.SkyBlue;
+            this.btnActualizar.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnActualizar.Location = new System.Drawing.Point(92, 3);
             this.btnActualizar.Name = "btnActualizar";
-            this.btnActualizar.Size = new System.Drawing.Size(80, 25);
+            this.btnActualizar.Size = new System.Drawing.Size(80, 79);
             this.btnActualizar.TabIndex = 8;
-            this.btnActualizar.Text = "Actualizar";
-            this.btnActualizar.UseVisualStyleBackColor = true;
+            this.btnActualizar.Text = "✏️";
+            this.btnActualizar.UseVisualStyleBackColor = false;
             this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
             // 
             // btnEliminar
             // 
-            this.btnEliminar.Location = new System.Drawing.Point(422, 107);
+            this.btnEliminar.BackColor = System.Drawing.Color.Red;
+            this.btnEliminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEliminar.Location = new System.Drawing.Point(270, 3);
             this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(80, 25);
+            this.btnEliminar.Size = new System.Drawing.Size(80, 75);
             this.btnEliminar.TabIndex = 9;
-            this.btnEliminar.Text = "Eliminar";
-            this.btnEliminar.UseVisualStyleBackColor = true;
+            this.btnEliminar.Text = "🚮";
+            this.btnEliminar.UseVisualStyleBackColor = false;
             this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(562, 21);
+            this.btnLimpiar.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.btnLimpiar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnLimpiar.BackgroundImage")));
+            this.btnLimpiar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnLimpiar.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLimpiar.Location = new System.Drawing.Point(181, 3);
             this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(80, 25);
+            this.btnLimpiar.Size = new System.Drawing.Size(80, 75);
             this.btnLimpiar.TabIndex = 10;
-            this.btnLimpiar.Text = "Limpiar";
-            this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Text = "🫧";
+            this.btnLimpiar.UseVisualStyleBackColor = false;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.tableLayoutPanel3);
+            this.panel1.Controls.Add(this.tableLayoutPanel1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(914, 151);
+            this.panel1.TabIndex = 11;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 32.11267F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 67.88732F));
+            this.tableLayoutPanel1.Controls.Add(this.lblProducto, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.lblIngrediente, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.lblCantidad, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.cbProductos, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.txtCantidad, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.cbIngredientes, 1, 1);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(46, 29);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(355, 100);
+            this.tableLayoutPanel1.TabIndex = 12;
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.ColumnCount = 4;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel3.Controls.Add(this.btnEliminar, 3, 0);
+            this.tableLayoutPanel3.Controls.Add(this.btnAgregar, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.btnActualizar, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.btnLimpiar, 2, 0);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(500, 29);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 1;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(356, 100);
+            this.tableLayoutPanel3.TabIndex = 14;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.dgvRecetas);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(0, 151);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(914, 308);
+            this.panel2.TabIndex = 12;
             // 
             // FrmRecetas
             // 
-            this.ClientSize = new System.Drawing.Size(814, 390);
-            this.Controls.Add(this.btnLimpiar);
-            this.Controls.Add(this.btnEliminar);
-            this.Controls.Add(this.btnActualizar);
-            this.Controls.Add(this.btnAgregar);
-            this.Controls.Add(this.txtCantidad);
-            this.Controls.Add(this.lblCantidad);
-            this.Controls.Add(this.cbIngredientes);
-            this.Controls.Add(this.lblIngrediente);
-            this.Controls.Add(this.cbProductos);
-            this.Controls.Add(this.lblProducto);
-            this.Controls.Add(this.dgvRecetas);
+            this.ClientSize = new System.Drawing.Size(914, 459);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "FrmRecetas";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Gestión de Recetas";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.dgvRecetas)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
+            this.tableLayoutPanel3.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
+
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.Panel panel2;
     }
 }
