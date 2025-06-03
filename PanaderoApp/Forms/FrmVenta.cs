@@ -1,5 +1,6 @@
 ﻿using PanaderoApp.Controllers;
 using PanaderoApp.Models;
+using PanaderoApp.Class;  // Asegúrate de tener el namespace correcto para GenerarReciboPDF
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +28,7 @@ namespace PanaderoApp.Forms
             try
             {
                 var controller = new ProductosController();
-                var productosDesdeBD = controller.ObtenerTodos(); // Esto trae la lista desde la base de datos
+                var productosDesdeBD = controller.ObtenerTodos();
 
                 productos = productosDesdeBD.Select(p => new Producto
                 {
@@ -45,10 +46,8 @@ namespace PanaderoApp.Forms
             }
         }
 
-
         private void InicializarGrids()
         {
-            // Configurar dgvProductos
             dgvProductos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvProductos.MultiSelect = false;
             dgvProductos.ReadOnly = true;
@@ -58,10 +57,9 @@ namespace PanaderoApp.Forms
             dgvProductos.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Nombre", DataPropertyName = "Nombre", Width = 150 });
             dgvProductos.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Precio", DataPropertyName = "Precio", Width = 70 });
 
-            // Configurar dgvDetalles
             dgvDetalles.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvDetalles.MultiSelect = false;
-            dgvDetalles.ReadOnly = false; // Permitir editar cantidad
+            dgvDetalles.ReadOnly = false;
             dgvDetalles.AutoGenerateColumns = false;
             dgvDetalles.Columns.Clear();
 
@@ -206,6 +204,11 @@ namespace PanaderoApp.Forms
             if (resultado)
             {
                 MessageBox.Show("Venta guardada exitosamente.");
+
+                // Generar y abrir el PDF del recibo en carpeta Recibos
+                var generadorPDF = new GenerarReciboPDF();
+                generadorPDF.GenerarRecibo(venta, "Recibos");
+
                 detallesVenta.Clear();
                 ActualizarGridDetalles();
                 txtTotal.Text = "0.00";
