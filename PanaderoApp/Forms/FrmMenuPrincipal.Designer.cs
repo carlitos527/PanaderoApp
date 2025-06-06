@@ -43,6 +43,7 @@ namespace PanaderoApp.Forms
             // 
             // btnClientes
             // 
+            this.btnClientes.BackColor = System.Drawing.Color.DodgerBlue;
             this.btnClientes.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnClientes.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btnClientes.FlatAppearance.BorderColor = System.Drawing.Color.Black;
@@ -64,11 +65,12 @@ namespace PanaderoApp.Forms
             this.btnClientes.Text = "Clientes";
             this.btnClientes.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnClientes.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnClientes.UseVisualStyleBackColor = true;
+            this.btnClientes.UseVisualStyleBackColor = false;
             this.btnClientes.Click += new System.EventHandler(this.Clientes_Click);
             // 
             // btnIngredientes
             // 
+            this.btnIngredientes.BackColor = System.Drawing.Color.Maroon;
             this.btnIngredientes.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnIngredientes.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btnIngredientes.FlatAppearance.BorderColor = System.Drawing.Color.Black;
@@ -90,11 +92,12 @@ namespace PanaderoApp.Forms
             this.btnIngredientes.Text = "Inventario de Ingredientes";
             this.btnIngredientes.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnIngredientes.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnIngredientes.UseVisualStyleBackColor = true;
+            this.btnIngredientes.UseVisualStyleBackColor = false;
             this.btnIngredientes.Click += new System.EventHandler(this.Ingredientes_Click);
             // 
             // btnProductos
             // 
+            this.btnProductos.BackColor = System.Drawing.Color.DarkOrange;
             this.btnProductos.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnProductos.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btnProductos.FlatAppearance.BorderColor = System.Drawing.Color.Black;
@@ -116,11 +119,12 @@ namespace PanaderoApp.Forms
             this.btnProductos.Text = "Catálogo de Productos";
             this.btnProductos.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnProductos.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnProductos.UseVisualStyleBackColor = true;
+            this.btnProductos.UseVisualStyleBackColor = false;
             this.btnProductos.Click += new System.EventHandler(this.Productos_Click);
             // 
             // btnProveedores
             // 
+            this.btnProveedores.BackColor = System.Drawing.Color.Orange;
             this.btnProveedores.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnProveedores.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btnProveedores.FlatAppearance.BorderColor = System.Drawing.Color.DarkSlateGray;
@@ -142,11 +146,12 @@ namespace PanaderoApp.Forms
             this.btnProveedores.Text = "Proveedores";
             this.btnProveedores.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnProveedores.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnProveedores.UseVisualStyleBackColor = true;
+            this.btnProveedores.UseVisualStyleBackColor = false;
             this.btnProveedores.Click += new System.EventHandler(this.Proveedores_Click);
             // 
             // btnRecetas
             // 
+            this.btnRecetas.BackColor = System.Drawing.Color.Purple;
             this.btnRecetas.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRecetas.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btnRecetas.FlatAppearance.BorderColor = System.Drawing.Color.MidnightBlue;
@@ -154,9 +159,9 @@ namespace PanaderoApp.Forms
             this.btnRecetas.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSteelBlue;
             this.btnRecetas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRecetas.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Bold);
-            this.btnRecetas.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.btnRecetas.ForeColor = System.Drawing.Color.Black;
             this.btnRecetas.IconChar = FontAwesome.Sharp.IconChar.BookOpen;
-            this.btnRecetas.IconColor = System.Drawing.Color.MidnightBlue;
+            this.btnRecetas.IconColor = System.Drawing.Color.Black;
             this.btnRecetas.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnRecetas.IconSize = 38;
             this.btnRecetas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -169,12 +174,12 @@ namespace PanaderoApp.Forms
             this.btnRecetas.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnRecetas.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.toolTip.SetToolTip(this.btnRecetas, "Abrir la gestión de recetas y fórmulas de productos.");
-            this.btnRecetas.UseVisualStyleBackColor = true;
+            this.btnRecetas.UseVisualStyleBackColor = false;
             this.btnRecetas.Click += new System.EventHandler(this.Recetas_Click);
             // 
             // btnVender
             // 
-            this.btnVender.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(255)))));
+            this.btnVender.BackColor = System.Drawing.Color.DarkGreen;
             this.btnVender.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btnVender.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVender.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
@@ -196,11 +201,11 @@ namespace PanaderoApp.Forms
             // 
             // btnFacturas
             // 
-            this.btnFacturas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
+            this.btnFacturas.BackColor = System.Drawing.Color.Gray;
             this.btnFacturas.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btnFacturas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFacturas.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnFacturas.ForeColor = System.Drawing.Color.White;
+            this.btnFacturas.ForeColor = System.Drawing.Color.Black;
             this.btnFacturas.IconChar = FontAwesome.Sharp.IconChar.Receipt;
             this.btnFacturas.IconColor = System.Drawing.Color.White;
             this.btnFacturas.IconFont = FontAwesome.Sharp.IconFont.Auto;

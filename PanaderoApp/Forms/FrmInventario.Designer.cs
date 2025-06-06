@@ -26,6 +26,7 @@ namespace PanaderoApp.Forms
             // 
             // btnIngredientes
             // 
+            this.btnIngredientes.BackColor = System.Drawing.Color.SteelBlue;
             this.btnIngredientes.IconChar = FontAwesome.Sharp.IconChar.Warehouse;
             this.btnIngredientes.IconColor = System.Drawing.Color.Black;
             this.btnIngredientes.IconFont = FontAwesome.Sharp.IconFont.Auto;
@@ -36,11 +37,12 @@ namespace PanaderoApp.Forms
             this.btnIngredientes.TabIndex = 0;
             this.btnIngredientes.Text = "Consultar Ingredientes";
             this.btnIngredientes.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnIngredientes.UseVisualStyleBackColor = true;
+            this.btnIngredientes.UseVisualStyleBackColor = false;
             this.btnIngredientes.Click += new System.EventHandler(this.Ingredintes_Click);
             // 
             // btnStockMovimientos
             // 
+            this.btnStockMovimientos.BackColor = System.Drawing.Color.SeaGreen;
             this.btnStockMovimientos.IconChar = FontAwesome.Sharp.IconChar.ExchangeAlt;
             this.btnStockMovimientos.IconColor = System.Drawing.Color.Black;
             this.btnStockMovimientos.IconFont = FontAwesome.Sharp.IconFont.Auto;
@@ -51,7 +53,7 @@ namespace PanaderoApp.Forms
             this.btnStockMovimientos.TabIndex = 1;
             this.btnStockMovimientos.Text = "Movimientos de Stock";
             this.btnStockMovimientos.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnStockMovimientos.UseVisualStyleBackColor = true;
+            this.btnStockMovimientos.UseVisualStyleBackColor = false;
             this.btnStockMovimientos.Click += new System.EventHandler(this.button1_Click);
             // 
             // FrmInventario

@@ -119,11 +119,11 @@
             // btnAgregarProducto
             // 
             this.btnAgregarProducto.BackColor = System.Drawing.Color.DeepSkyBlue;
-            this.btnAgregarProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAgregarProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarProducto.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.btnAgregarProducto.Location = new System.Drawing.Point(20, 382);
             this.btnAgregarProducto.Name = "btnAgregarProducto";
-            this.btnAgregarProducto.Size = new System.Drawing.Size(100, 68);
+            this.btnAgregarProducto.Size = new System.Drawing.Size(100, 88);
             this.btnAgregarProducto.TabIndex = 6;
             this.btnAgregarProducto.Text = "🛒";
             this.btnAgregarProducto.UseVisualStyleBackColor = false;
@@ -132,10 +132,10 @@
             // btnQuitarProducto
             // 
             this.btnQuitarProducto.BackColor = System.Drawing.Color.Red;
-            this.btnQuitarProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnQuitarProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnQuitarProducto.Location = new System.Drawing.Point(161, 382);
             this.btnQuitarProducto.Name = "btnQuitarProducto";
-            this.btnQuitarProducto.Size = new System.Drawing.Size(103, 69);
+            this.btnQuitarProducto.Size = new System.Drawing.Size(103, 88);
             this.btnQuitarProducto.TabIndex = 7;
             this.btnQuitarProducto.Text = "❎";
             this.btnQuitarProducto.UseVisualStyleBackColor = false;
@@ -146,6 +146,7 @@
             this.btnGuardarVenta.BackColor = System.Drawing.Color.Green;
             this.btnGuardarVenta.Dock = System.Windows.Forms.DockStyle.Right;
             this.btnGuardarVenta.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGuardarVenta.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.btnGuardarVenta.Location = new System.Drawing.Point(526, 30);
             this.btnGuardarVenta.Name = "btnGuardarVenta";
             this.btnGuardarVenta.Size = new System.Drawing.Size(96, 67);

@@ -37,9 +37,15 @@
             this.dgvProductos = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
+            this.panel4.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblNombre
@@ -48,7 +54,7 @@
             this.lblNombre.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblNombre.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.lblNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNombre.Location = new System.Drawing.Point(53, 49);
+            this.lblNombre.Location = new System.Drawing.Point(66, 31);
             this.lblNombre.Name = "lblNombre";
             this.lblNombre.Size = new System.Drawing.Size(68, 18);
             this.lblNombre.TabIndex = 0;
@@ -56,7 +62,7 @@
             // 
             // txtNombre
             // 
-            this.txtNombre.Location = new System.Drawing.Point(176, 49);
+            this.txtNombre.Location = new System.Drawing.Point(177, 29);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(200, 20);
             this.txtNombre.TabIndex = 1;
@@ -67,7 +73,7 @@
             this.lblPrecio.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblPrecio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblPrecio.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPrecio.Location = new System.Drawing.Point(53, 84);
+            this.lblPrecio.Location = new System.Drawing.Point(66, 69);
             this.lblPrecio.Name = "lblPrecio";
             this.lblPrecio.Size = new System.Drawing.Size(80, 18);
             this.lblPrecio.TabIndex = 2;
@@ -75,7 +81,7 @@
             // 
             // txtPrecio
             // 
-            this.txtPrecio.Location = new System.Drawing.Point(176, 84);
+            this.txtPrecio.Location = new System.Drawing.Point(177, 69);
             this.txtPrecio.Name = "txtPrecio";
             this.txtPrecio.Size = new System.Drawing.Size(200, 20);
             this.txtPrecio.TabIndex = 3;
@@ -83,11 +89,11 @@
             // btnAgregar
             // 
             this.btnAgregar.BackColor = System.Drawing.Color.Green;
-            this.btnAgregar.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAgregar.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnAgregar.Location = new System.Drawing.Point(438, 27);
+            this.btnAgregar.Location = new System.Drawing.Point(3, 3);
             this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(57, 51);
+            this.btnAgregar.Size = new System.Drawing.Size(78, 73);
             this.btnAgregar.TabIndex = 4;
             this.btnAgregar.Text = "✅";
             this.btnAgregar.UseVisualStyleBackColor = false;
@@ -96,10 +102,11 @@
             // btnActualizar
             // 
             this.btnActualizar.BackColor = System.Drawing.Color.SkyBlue;
-            this.btnActualizar.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnActualizar.Location = new System.Drawing.Point(519, 27);
+            this.btnActualizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnActualizar.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnActualizar.Location = new System.Drawing.Point(115, 3);
             this.btnActualizar.Name = "btnActualizar";
-            this.btnActualizar.Size = new System.Drawing.Size(56, 51);
+            this.btnActualizar.Size = new System.Drawing.Size(75, 73);
             this.btnActualizar.TabIndex = 5;
             this.btnActualizar.Text = "✏️";
             this.btnActualizar.UseVisualStyleBackColor = false;
@@ -108,11 +115,11 @@
             // btnEliminar
             // 
             this.btnEliminar.BackColor = System.Drawing.Color.Red;
-            this.btnEliminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEliminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEliminar.ForeColor = System.Drawing.Color.Black;
-            this.btnEliminar.Location = new System.Drawing.Point(680, 27);
+            this.btnEliminar.Location = new System.Drawing.Point(339, 3);
             this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(63, 51);
+            this.btnEliminar.Size = new System.Drawing.Size(79, 75);
             this.btnEliminar.TabIndex = 6;
             this.btnEliminar.Text = "🚮";
             this.btnEliminar.UseVisualStyleBackColor = false;
@@ -123,9 +130,10 @@
             this.btnLimpiar.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.btnLimpiar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnLimpiar.BackgroundImage")));
             this.btnLimpiar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnLimpiar.Location = new System.Drawing.Point(594, 27);
+            this.btnLimpiar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLimpiar.Location = new System.Drawing.Point(227, 3);
             this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(69, 51);
+            this.btnLimpiar.Size = new System.Drawing.Size(78, 73);
             this.btnLimpiar.TabIndex = 7;
             this.btnLimpiar.Text = "🫧";
             this.btnLimpiar.UseVisualStyleBackColor = false;
@@ -143,24 +151,18 @@
             this.dgvProductos.Name = "dgvProductos";
             this.dgvProductos.ReadOnly = true;
             this.dgvProductos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvProductos.Size = new System.Drawing.Size(792, 316);
+            this.dgvProductos.Size = new System.Drawing.Size(873, 316);
             this.dgvProductos.TabIndex = 8;
             this.dgvProductos.SelectionChanged += new System.EventHandler(this.dgvProductos_SelectionChanged);
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.lblNombre);
-            this.panel1.Controls.Add(this.lblPrecio);
-            this.panel1.Controls.Add(this.btnLimpiar);
-            this.panel1.Controls.Add(this.txtNombre);
-            this.panel1.Controls.Add(this.btnActualizar);
-            this.panel1.Controls.Add(this.btnEliminar);
-            this.panel1.Controls.Add(this.txtPrecio);
-            this.panel1.Controls.Add(this.btnAgregar);
+            this.panel1.Controls.Add(this.panel4);
+            this.panel1.Controls.Add(this.panel3);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(792, 118);
+            this.panel1.Size = new System.Drawing.Size(873, 118);
             this.panel1.TabIndex = 9;
             // 
             // panel2
@@ -169,12 +171,51 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 118);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(792, 316);
+            this.panel2.Size = new System.Drawing.Size(873, 316);
             this.panel2.TabIndex = 10;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.lblPrecio);
+            this.panel3.Controls.Add(this.txtNombre);
+            this.panel3.Controls.Add(this.lblNombre);
+            this.panel3.Controls.Add(this.txtPrecio);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(406, 118);
+            this.panel3.TabIndex = 8;
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.tableLayoutPanel1);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel4.Location = new System.Drawing.Point(406, 0);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(467, 118);
+            this.panel4.TabIndex = 9;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 4;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.Controls.Add(this.btnEliminar, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnActualizar, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnLimpiar, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnAgregar, 0, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(15, 12);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(449, 100);
+            this.tableLayoutPanel1.TabIndex = 9;
             // 
             // FrmProductos
             // 
-            this.ClientSize = new System.Drawing.Size(792, 434);
+            this.ClientSize = new System.Drawing.Size(873, 434);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -184,13 +225,19 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).EndInit();
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Panel panel3;
     }
 }

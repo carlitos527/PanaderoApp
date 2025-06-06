@@ -4,7 +4,6 @@
     {
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IniciarSesion));
             this.txtNombreUsuario = new System.Windows.Forms.TextBox();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.btnIniciarSesion = new System.Windows.Forms.Button();
@@ -16,9 +15,9 @@
             // txtNombreUsuario
             // 
             this.txtNombreUsuario.ForeColor = System.Drawing.Color.Gray;
-            this.txtNombreUsuario.Location = new System.Drawing.Point(103, 24);
+            this.txtNombreUsuario.Location = new System.Drawing.Point(145, 22);
             this.txtNombreUsuario.Name = "txtNombreUsuario";
-            this.txtNombreUsuario.Size = new System.Drawing.Size(131, 20);
+            this.txtNombreUsuario.Size = new System.Drawing.Size(167, 20);
             this.txtNombreUsuario.TabIndex = 0;
             this.txtNombreUsuario.Text = "Ingrese nombre de usuario";
             this.txtNombreUsuario.Enter += new System.EventHandler(this.RemovePlaceholderText);
@@ -27,9 +26,9 @@
             // txtPassword
             // 
             this.txtPassword.ForeColor = System.Drawing.Color.Gray;
-            this.txtPassword.Location = new System.Drawing.Point(103, 58);
+            this.txtPassword.Location = new System.Drawing.Point(145, 56);
             this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Size = new System.Drawing.Size(131, 20);
+            this.txtPassword.Size = new System.Drawing.Size(167, 20);
             this.txtPassword.TabIndex = 1;
             this.txtPassword.Text = "Ingrese la contraseña";
             this.txtPassword.Enter += new System.EventHandler(this.RemovePlaceholderText);
@@ -37,24 +36,26 @@
             // 
             // btnIniciarSesion
             // 
-            this.btnIniciarSesion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnIniciarSesion.Location = new System.Drawing.Point(159, 105);
+            this.btnIniciarSesion.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnIniciarSesion.ForeColor = System.Drawing.Color.Green;
+            this.btnIniciarSesion.Location = new System.Drawing.Point(203, 121);
             this.btnIniciarSesion.Name = "btnIniciarSesion";
-            this.btnIniciarSesion.Size = new System.Drawing.Size(75, 23);
+            this.btnIniciarSesion.Size = new System.Drawing.Size(87, 49);
             this.btnIniciarSesion.TabIndex = 2;
-            this.btnIniciarSesion.Text = "Iniciar Sesión";
+            this.btnIniciarSesion.Text = "✅";
             this.btnIniciarSesion.UseVisualStyleBackColor = true;
             this.btnIniciarSesion.Click += new System.EventHandler(this.btnIniciarSesion_Click);
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelar.Location = new System.Drawing.Point(69, 105);
+            this.btnCancelar.BackColor = System.Drawing.Color.Red;
+            this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelar.Location = new System.Drawing.Point(99, 121);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(75, 23);
+            this.btnCancelar.Size = new System.Drawing.Size(75, 49);
             this.btnCancelar.TabIndex = 3;
-            this.btnCancelar.Text = "Cancelar";
-            this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Text = "❎";
+            this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // label1
@@ -71,7 +72,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Tai Le", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(16, 60);
+            this.label2.Location = new System.Drawing.Point(35, 58);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(72, 16);
             this.label2.TabIndex = 5;
@@ -79,16 +80,15 @@
             // 
             // IniciarSesion
             // 
-            //this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(284, 140);
+            this.ClientSize = new System.Drawing.Size(373, 193);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnIniciarSesion);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.txtNombreUsuario);
-            // this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "IniciarSesion";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Iniciar Sesión";

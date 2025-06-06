@@ -38,16 +38,20 @@
             this.btnEliminar = new System.Windows.Forms.Button();
             this.dgvProveedores = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lblCorreo = new System.Windows.Forms.Label();
             this.txtCorreo = new System.Windows.Forms.TextBox();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProveedores)).BeginInit();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtId
@@ -108,11 +112,11 @@
             // btnAgregar
             // 
             this.btnAgregar.BackColor = System.Drawing.Color.Green;
-            this.btnAgregar.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAgregar.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnAgregar.Location = new System.Drawing.Point(3, 3);
             this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(84, 69);
+            this.btnAgregar.Size = new System.Drawing.Size(104, 92);
             this.btnAgregar.TabIndex = 8;
             this.btnAgregar.Text = "✅";
             this.btnAgregar.UseVisualStyleBackColor = false;
@@ -121,10 +125,10 @@
             // btnActualizar
             // 
             this.btnActualizar.BackColor = System.Drawing.Color.SkyBlue;
-            this.btnActualizar.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnActualizar.Location = new System.Drawing.Point(93, 3);
+            this.btnActualizar.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnActualizar.Location = new System.Drawing.Point(122, 3);
             this.btnActualizar.Name = "btnActualizar";
-            this.btnActualizar.Size = new System.Drawing.Size(84, 69);
+            this.btnActualizar.Size = new System.Drawing.Size(104, 97);
             this.btnActualizar.TabIndex = 9;
             this.btnActualizar.Text = "✏️";
             this.btnActualizar.UseVisualStyleBackColor = false;
@@ -133,10 +137,10 @@
             // btnEliminar
             // 
             this.btnEliminar.BackColor = System.Drawing.Color.Red;
-            this.btnEliminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEliminar.Location = new System.Drawing.Point(183, 3);
+            this.btnEliminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEliminar.Location = new System.Drawing.Point(241, 3);
             this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(84, 65);
+            this.btnEliminar.Size = new System.Drawing.Size(99, 97);
             this.btnEliminar.TabIndex = 10;
             this.btnEliminar.Text = "🚮";
             this.btnEliminar.UseVisualStyleBackColor = false;
@@ -154,22 +158,53 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.tableLayoutPanel2);
-            this.panel1.Controls.Add(this.tableLayoutPanel1);
+            this.panel1.Controls.Add(this.panel4);
+            this.panel1.Controls.Add(this.panel3);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(859, 219);
             this.panel1.TabIndex = 12;
             // 
-            // panel2
+            // tableLayoutPanel2
             // 
-            this.panel2.Controls.Add(this.dgvProveedores);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 219);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(859, 271);
-            this.panel2.TabIndex = 13;
+            this.tableLayoutPanel2.ColumnCount = 3;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel2.Controls.Add(this.btnEliminar, 2, 0);
+            this.tableLayoutPanel2.Controls.Add(this.btnAgregar, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.btnActualizar, 1, 0);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(6, 51);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(357, 120);
+            this.tableLayoutPanel2.TabIndex = 13;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 22.58883F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 77.41117F));
+            this.tableLayoutPanel1.Controls.Add(this.lblNombre, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.lblTelefono, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.lblCorreo, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.txtId, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.txtCorreo, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.lblId, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.txtTelefono, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.txtNombre, 1, 1);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(34, 22);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 4;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(456, 171);
+            this.tableLayoutPanel1.TabIndex = 12;
             // 
             // lblCorreo
             // 
@@ -189,47 +224,32 @@
             this.txtCorreo.Size = new System.Drawing.Size(318, 20);
             this.txtCorreo.TabIndex = 3;
             // 
-            // tableLayoutPanel1
+            // panel2
             // 
-            this.tableLayoutPanel1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 22.58883F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 77.41117F));
-            this.tableLayoutPanel1.Controls.Add(this.lblNombre, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.lblTelefono, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.lblCorreo, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.txtId, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.txtCorreo, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.lblId, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.txtTelefono, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.txtNombre, 1, 1);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(48, 30);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 4;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(456, 171);
-            this.tableLayoutPanel1.TabIndex = 12;
+            this.panel2.Controls.Add(this.dgvProveedores);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(0, 219);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(859, 271);
+            this.panel2.TabIndex = 13;
             // 
-            // tableLayoutPanel2
+            // panel3
             // 
-            this.tableLayoutPanel2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.tableLayoutPanel2.ColumnCount = 3;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel2.Controls.Add(this.btnActualizar, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.btnAgregar, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.btnEliminar, 2, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(525, 37);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 2;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(270, 151);
-            this.tableLayoutPanel2.TabIndex = 13;
+            this.panel3.Controls.Add(this.tableLayoutPanel1);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(493, 219);
+            this.panel3.TabIndex = 12;
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.tableLayoutPanel2);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel4.Location = new System.Drawing.Point(496, 0);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(363, 219);
+            this.panel4.TabIndex = 14;
             // 
             // FrmProveedores
             // 
@@ -242,10 +262,12 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.dgvProveedores)).EndInit();
             this.panel1.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            this.tableLayoutPanel2.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -256,5 +278,7 @@
         private System.Windows.Forms.Label lblCorreo;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel panel3;
     }
 }

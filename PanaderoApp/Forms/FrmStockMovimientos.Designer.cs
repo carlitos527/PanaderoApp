@@ -174,11 +174,11 @@
             // btnGuardar
             // 
             this.btnGuardar.BackColor = System.Drawing.Color.Green;
-            this.btnGuardar.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGuardar.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardar.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnGuardar.Location = new System.Drawing.Point(56, 285);
+            this.btnGuardar.Location = new System.Drawing.Point(39, 285);
             this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(77, 77);
+            this.btnGuardar.Size = new System.Drawing.Size(94, 93);
             this.btnGuardar.TabIndex = 17;
             this.btnGuardar.Text = "✅";
             this.btnGuardar.UseVisualStyleBackColor = false;
@@ -187,10 +187,10 @@
             // btnEliminar
             // 
             this.btnEliminar.BackColor = System.Drawing.Color.Red;
-            this.btnEliminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEliminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEliminar.Location = new System.Drawing.Point(296, 285);
             this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(90, 77);
+            this.btnEliminar.Size = new System.Drawing.Size(97, 93);
             this.btnEliminar.TabIndex = 16;
             this.btnEliminar.Text = "🚮";
             this.btnEliminar.UseVisualStyleBackColor = false;
@@ -202,11 +202,10 @@
             this.btnLimpiar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnLimpiar.BackgroundImage")));
             this.btnLimpiar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnLimpiar.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLimpiar.Location = new System.Drawing.Point(179, 285);
+            this.btnLimpiar.Location = new System.Drawing.Point(166, 285);
             this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(80, 77);
+            this.btnLimpiar.Size = new System.Drawing.Size(93, 93);
             this.btnLimpiar.TabIndex = 15;
-            this.btnLimpiar.Text = "🫧";
             this.btnLimpiar.UseVisualStyleBackColor = false;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 

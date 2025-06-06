@@ -206,6 +206,9 @@
     <EmbeddedResource Include="Forms\FrmVentasFac.resx">
       <DependentUpon>FrmVentasFac.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\IniciarSesion.resx">
+      <DependentUpon>IniciarSesion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

@@ -52,24 +52,27 @@
             // 
             // btnRegistrar
             // 
-            this.btnRegistrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRegistrar.Location = new System.Drawing.Point(139, 123);
+            this.btnRegistrar.BackColor = System.Drawing.Color.Green;
+            this.btnRegistrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRegistrar.Location = new System.Drawing.Point(139, 119);
             this.btnRegistrar.Name = "btnRegistrar";
-            this.btnRegistrar.Size = new System.Drawing.Size(91, 30);
+            this.btnRegistrar.Size = new System.Drawing.Size(91, 57);
             this.btnRegistrar.TabIndex = 2;
-            this.btnRegistrar.Text = "Registrar";
-            this.btnRegistrar.UseVisualStyleBackColor = true;
+            this.btnRegistrar.Text = "👥";
+            this.btnRegistrar.UseVisualStyleBackColor = false;
             this.btnRegistrar.Click += new System.EventHandler(this.btnRegistrar_Click);
             // 
             // button1
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.BackColor = System.Drawing.Color.DarkBlue;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.button1.Location = new System.Drawing.Point(41, 123);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 30);
+            this.button1.Size = new System.Drawing.Size(75, 53);
             this.button1.TabIndex = 3;
-            this.button1.Text = "Atras";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Text = "◀️◀️";
+            this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.Atras_Click);
             // 
             // FrmUsuarios
