@@ -16,10 +16,10 @@ namespace PanaderoApp.Controllers
         }
 
         // Crear venta con detalle en una transacción
-        public bool CrearVentaConDetalle(Venta venta)
+        public int CrearVentaConDetalle(Venta venta)
         {
             if (venta == null || venta.Detalle == null || venta.Detalle.Count == 0 || !venta.EsValida())
-                return false;
+                return 0;
 
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -29,8 +29,10 @@ namespace PanaderoApp.Controllers
                     try
                     {
                         string queryVenta = @"INSERT INTO Ventas (Fecha, TotalVenta, UsuarioId, ClienteId) 
-                                              VALUES (@Fecha, @TotalVenta, @UsuarioId, @ClienteId);
-                                              SELECT SCOPE_IDENTITY();";
+                                      VALUES (@Fecha, @TotalVenta, @UsuarioId, @ClienteId);
+                                      SELECT CAST(SCOPE_IDENTITY() AS int);";
+
+                        int ventaId;
 
                         using (SqlCommand cmdVenta = new SqlCommand(queryVenta, con, tran))
                         {
@@ -43,38 +45,38 @@ namespace PanaderoApp.Controllers
                             else
                                 cmdVenta.Parameters.Add("@ClienteId", System.Data.SqlDbType.Int).Value = DBNull.Value;
 
-                            decimal result = Convert.ToDecimal(cmdVenta.ExecuteScalar());
-                            int ventaId = Convert.ToInt32(result);
+                            ventaId = (int)cmdVenta.ExecuteScalar();
+                        }
 
-                            string queryDetalle = @"INSERT INTO DetalleVenta (VentaId, ProductoId, Cantidad, PrecioUnitario) 
-                                                    VALUES (@VentaId, @ProductoId, @Cantidad, @PrecioUnitario)";
+                        string queryDetalle = @"INSERT INTO DetalleVenta (VentaId, ProductoId, Cantidad, PrecioUnitario) 
+                                        VALUES (@VentaId, @ProductoId, @Cantidad, @PrecioUnitario)";
 
-                            foreach (var detalle in venta.Detalle)
+                        foreach (var detalle in venta.Detalle)
+                        {
+                            using (SqlCommand cmdDetalle = new SqlCommand(queryDetalle, con, tran))
                             {
-                                using (SqlCommand cmdDetalle = new SqlCommand(queryDetalle, con, tran))
-                                {
-                                    cmdDetalle.Parameters.Add("@VentaId", System.Data.SqlDbType.Int).Value = ventaId;
-                                    cmdDetalle.Parameters.Add("@ProductoId", System.Data.SqlDbType.Int).Value = detalle.ProductoId;
-                                    cmdDetalle.Parameters.Add("@Cantidad", System.Data.SqlDbType.Int).Value = detalle.Cantidad;
-                                    cmdDetalle.Parameters.Add("@PrecioUnitario", System.Data.SqlDbType.Decimal).Value = detalle.PrecioUnitario;
+                                cmdDetalle.Parameters.Add("@VentaId", System.Data.SqlDbType.Int).Value = ventaId;
+                                cmdDetalle.Parameters.Add("@ProductoId", System.Data.SqlDbType.Int).Value = detalle.ProductoId;
+                                cmdDetalle.Parameters.Add("@Cantidad", System.Data.SqlDbType.Int).Value = detalle.Cantidad;
+                                cmdDetalle.Parameters.Add("@PrecioUnitario", System.Data.SqlDbType.Decimal).Value = detalle.PrecioUnitario;
 
-                                    cmdDetalle.ExecuteNonQuery();
-                                }
+                                cmdDetalle.ExecuteNonQuery();
                             }
                         }
 
                         tran.Commit();
-                        return true;
+                        return ventaId;
                     }
                     catch (Exception ex)
                     {
                         tran.Rollback();
                         System.Windows.Forms.MessageBox.Show("Error al guardar venta:\n" + ex.Message);
-                        return false;
+                        return 0;
                     }
                 }
             }
         }
+
 
         // Obtener venta con detalles
         public Venta ObtenerVentaConDetalle(int id)

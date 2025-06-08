@@ -199,10 +199,12 @@ namespace PanaderoApp.Forms
                 return;
             }
 
-            bool resultado = ventasController.CrearVentaConDetalle(venta);
+            int ventaId = ventasController.CrearVentaConDetalle(venta);
 
-            if (resultado)
+            if (ventaId > 0)
             {
+                venta.Id = ventaId; // asignar el Id generado a la venta
+
                 MessageBox.Show("Venta guardada exitosamente.");
 
                 // Generar y abrir el PDF del recibo en carpeta Recibos
@@ -218,6 +220,7 @@ namespace PanaderoApp.Forms
                 MessageBox.Show("Error al guardar la venta.");
             }
         }
+
     }
 
     // Clase auxiliar Producto para demo (usa tu modelo real si tienes)

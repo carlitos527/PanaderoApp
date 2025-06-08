@@ -1,15 +1,28 @@
 ﻿using PanaderoApp.Models;
 using System;
+using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using System.Configuration;
 
 namespace PanaderoApp.Class
 {
     public class GenerarReciboPDF
     {
+        private readonly string connectionString;
+
+        public GenerarReciboPDF()
+        {
+            connectionString = ConfigurationManager.ConnectionStrings["PanaderiaConnection"].ConnectionString;
+        }
+
+        /// <summary>
+        /// Genera el PDF del recibo para una venta ya existente.
+        /// </summary>
         public void GenerarRecibo(Venta venta, string carpetaDestino = "Recibos")
         {
             if (venta == null)
@@ -18,61 +31,116 @@ namespace PanaderoApp.Class
                 return;
             }
 
+            if (venta.Id <= 0)
+            {
+                MessageBox.Show("La venta debe estar guardada previamente para generar el recibo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Cultura colombiana para formato moneda
+            System.Threading.Thread.CurrentThread.CurrentCulture = new CultureInfo("es-CO");
+
             try
             {
-                // Crear carpeta destino si no existe
                 if (!Directory.Exists(carpetaDestino))
                 {
                     Directory.CreateDirectory(carpetaDestino);
                 }
 
-                string nombreArchivo = Path.Combine(carpetaDestino, $"Recibo_{venta.Id}.pdf");
+                string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+                string nombreArchivo = $"Recibo_{venta.Id}_{timestamp}.pdf";
+                string rutaCompleta = Path.Combine(carpetaDestino, nombreArchivo);
 
-                Document doc = new Document();
-                PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(nombreArchivo, FileMode.Create));
-                doc.Open();
-
-                // Título
-                var titulo = new Paragraph("RECIBO DE VENTA")
+                using (Document doc = new Document())
                 {
-                    Alignment = Element.ALIGN_CENTER,
-                    SpacingAfter = 10f,
-                    Font = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 16)
-                };
-                doc.Add(titulo);
+                    using (FileStream fs = new FileStream(rutaCompleta, FileMode.Create))
+                    {
+                        PdfWriter writer = PdfWriter.GetInstance(doc, fs);
+                        doc.Open();
 
-                // Fecha
-                doc.Add(new Paragraph($"Fecha: {venta.Fecha}"));
-                doc.Add(new Paragraph("-------------------------------------"));
+                        var titulo = new Paragraph("RECIBO DE VENTA", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 16))
+                        {
+                            Alignment = Element.ALIGN_CENTER,
+                            SpacingAfter = 10f
+                        };
+                        doc.Add(titulo);
 
-                // Detalle
-                foreach (var item in venta.Detalle)
-                {
-                    string linea = $"{item.Cantidad} x {item.PrecioUnitario:C} = {(item.Cantidad * item.PrecioUnitario):C}";
-                    doc.Add(new Paragraph(linea));
+                        var fecha = new Paragraph($"Fecha: {venta.Fecha:dd/MM/yyyy HH:mm}", FontFactory.GetFont(FontFactory.HELVETICA, 12))
+                        {
+                            Alignment = Element.ALIGN_CENTER,
+                            SpacingAfter = 5f
+                        };
+                        doc.Add(fecha);
+
+                        var separador = new Paragraph("-------------------------------------")
+                        {
+                            Alignment = Element.ALIGN_CENTER
+                        };
+                        doc.Add(separador);
+
+                        foreach (var item in venta.Detalle)
+                        {
+                            string linea = $"{item.Cantidad} x {item.PrecioUnitario:C} = {(item.Cantidad * item.PrecioUnitario):C}";
+                            var detalle = new Paragraph(linea, FontFactory.GetFont(FontFactory.HELVETICA, 12))
+                            {
+                                Alignment = Element.ALIGN_CENTER
+                            };
+                            doc.Add(detalle);
+                        }
+
+                        doc.Add(separador);
+
+                        var total = new Paragraph($"TOTAL: {venta.TotalVenta:C}",
+                            FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12))
+                        {
+                            Alignment = Element.ALIGN_CENTER,
+                            SpacingBefore = 5f
+                        };
+                        doc.Add(total);
+
+                        doc.Close();
+                        writer.Close();
+                    }
                 }
 
-                doc.Add(new Paragraph("-------------------------------------"));
+                GuardarRegistroRecibo(venta.Id, nombreArchivo, rutaCompleta);
 
-                // Total
-                doc.Add(new Paragraph($"TOTAL: {venta.TotalVenta:C}",
-                    FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12)));
+                MessageBox.Show($"Recibo generado: {rutaCompleta}", "PDF", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                doc.Close();
-                writer.Close();
-
-                MessageBox.Show($"Recibo generado: {nombreArchivo}", "PDF", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                // Abrir automáticamente el PDF
                 Process.Start(new ProcessStartInfo
                 {
-                    FileName = nombreArchivo,
+                    FileName = rutaCompleta,
                     UseShellExecute = true
                 });
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al generar PDF: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void GuardarRegistroRecibo(int ventaId, string nombreArchivo, string rutaArchivo)
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    string query = "INSERT INTO RecibosPDF (VentaId, NombreArchivo, RutaArchivo, FechaGeneracion) VALUES (@VentaId, @NombreArchivo, @RutaArchivo, GETDATE())";
+
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@VentaId", ventaId);
+                        cmd.Parameters.AddWithValue("@NombreArchivo", nombreArchivo);
+                        cmd.Parameters.AddWithValue("@RutaArchivo", rutaArchivo);
+
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error guardando registro del recibo en base de datos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
