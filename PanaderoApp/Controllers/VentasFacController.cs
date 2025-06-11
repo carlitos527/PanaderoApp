@@ -41,7 +41,11 @@ namespace PanaderoApp.Controllers
             List<VentasFac> lista = new List<VentasFac>();
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                string query = "SELECT Id, VentaId, ProductoId, Cantidad, PrecioUnitario FROM DetalleVenta";
+                string query = @"SELECT dv.Id, dv.VentaId, dv.ProductoId, p.Nombre AS NombreProducto, 
+                                dv.Cantidad, dv.PrecioUnitario
+                         FROM DetalleVenta dv
+                         INNER JOIN Producto p ON dv.ProductoId = p.Id";
+
                 SqlCommand cmd = new SqlCommand(query, conn);
 
                 conn.Open();
@@ -54,6 +58,7 @@ namespace PanaderoApp.Controllers
                         Id = Convert.ToInt32(reader["Id"]),
                         VentaId = Convert.ToInt32(reader["VentaId"]),
                         ProductoId = Convert.ToInt32(reader["ProductoId"]),
+                        NombreProducto = reader["NombreProducto"].ToString(),
                         Cantidad = Convert.ToInt32(reader["Cantidad"]),
                         PrecioUnitario = Convert.ToDecimal(reader["PrecioUnitario"])
                     });
@@ -61,6 +66,7 @@ namespace PanaderoApp.Controllers
             }
             return lista;
         }
+
 
         // Actualizar
         public bool Actualizar(VentasFac ventaFac)

@@ -82,10 +82,12 @@ namespace PanaderoApp.Controllers
         public Venta ObtenerVentaConDetalle(int id)
         {
             Venta venta = null;
+
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
 
+                // 1. Obtener la venta principal
                 string queryVenta = "SELECT * FROM Ventas WHERE Id = @Id";
                 using (SqlCommand cmdVenta = new SqlCommand(queryVenta, con))
                 {
@@ -108,9 +110,15 @@ namespace PanaderoApp.Controllers
                     }
                 }
 
+                // 2. Si la venta existe, obtener sus detalles con nombre del producto
                 if (venta != null)
                 {
-                    string queryDetalle = "SELECT * FROM DetalleVenta WHERE VentaId = @VentaId";
+                    string queryDetalle = @"
+                SELECT dv.ProductoId, dv.Cantidad, dv.PrecioUnitario, p.Nombre AS NombreProducto
+                FROM DetalleVenta dv
+                INNER JOIN Productos p ON dv.ProductoId = p.Id
+                WHERE dv.VentaId = @VentaId";
+
                     using (SqlCommand cmdDetalle = new SqlCommand(queryDetalle, con))
                     {
                         cmdDetalle.Parameters.AddWithValue("@VentaId", venta.Id);
@@ -123,7 +131,8 @@ namespace PanaderoApp.Controllers
                                 {
                                     ProductoId = (int)readerDetalle["ProductoId"],
                                     Cantidad = (int)readerDetalle["Cantidad"],
-                                    PrecioUnitario = (decimal)readerDetalle["PrecioUnitario"]
+                                    PrecioUnitario = (decimal)readerDetalle["PrecioUnitario"],
+                                    NombreProducto = readerDetalle["NombreProducto"].ToString()
                                 };
                                 venta.Detalle.Add(detalle);
                             }
@@ -131,8 +140,10 @@ namespace PanaderoApp.Controllers
                     }
                 }
             }
+
             return venta;
         }
+
 
         // Obtener todas las ventas (sin detalle)
         public List<Venta> ObtenerVentas()

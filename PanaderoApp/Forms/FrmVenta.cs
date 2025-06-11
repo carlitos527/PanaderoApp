@@ -185,12 +185,19 @@ namespace PanaderoApp.Forms
                 TotalVenta = totalCalculado,
                 UsuarioId = 1, // TODO: reemplazar con usuario real
                 ClienteId = null,
-                Detalle = detallesVenta.Select(d => new VentasImpresion
+                Detalle = detallesVenta.Select(d =>
                 {
-                    ProductoId = d.ProductoId,
-                    Cantidad = d.Cantidad,
-                    PrecioUnitario = d.PrecioUnitario
+                    var producto = productos.FirstOrDefault(p => p.Id == d.ProductoId);
+                    return new VentasImpresion
+                    {
+                        ProductoId = d.ProductoId,
+                        Cantidad = d.Cantidad,
+                        PrecioUnitario = d.PrecioUnitario,
+                        NombreProducto = producto?.Nombre ?? "N/D"
+                    };
                 }).ToList()
+
+
             };
 
             if (!venta.EsValida())

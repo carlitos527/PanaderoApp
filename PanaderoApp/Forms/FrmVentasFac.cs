@@ -6,18 +6,41 @@ using System.Windows.Forms;
 
 namespace PanaderoApp.Forms
 {
+    /// <summary>
+    /// Formulario para gestionar las ventas detalladas (VentasFac).
+    /// </summary>
     public partial class FrmVentasFac : Form
     {
+        // Controlador que maneja la lógica de negocio para ventas detalladas.
         private VentasFacController controller = new VentasFacController();
+
+        // Lista que almacena temporalmente todas las ventas detalladas.
         private List<VentasFac> listaVentasFac = new List<VentasFac>();
 
+        /// <summary>
+        /// Constructor del formulario. Inicializa componentes, oculta botones y carga los datos.
+        /// </summary>
         public FrmVentasFac()
         {
             InitializeComponent();
-            ConfigurarDataGridView();
-            CargarDatos();
+            OcultarBotones(); // Oculta los botones de acción
+            ConfigurarDataGridView(); // Configura las columnas y formato del DataGridView
+            CargarDatos(); // Carga los datos desde la base de datos
         }
 
+        /// <summary>
+        /// Oculta los botones de acción (Nuevo, Guardar, Eliminar).
+        /// </summary>
+        private void OcultarBotones()
+        {
+            btnNuevo.Visible = false;
+            btnGuardar.Visible = false;
+            btnEliminar.Visible = false;
+        }
+
+        /// <summary>
+        /// Configura el DataGridView para mostrar las ventas detalladas.
+        /// </summary>
         private void ConfigurarDataGridView()
         {
             dgvVentasFac.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -26,6 +49,8 @@ namespace PanaderoApp.Forms
             dgvVentasFac.AutoGenerateColumns = false;
 
             dgvVentasFac.Columns.Clear();
+
+            // Agrega columnas personalizadas
             dgvVentasFac.Columns.Add(new DataGridViewTextBoxColumn()
             {
                 Name = "Id",
@@ -60,12 +85,16 @@ namespace PanaderoApp.Forms
                 DataPropertyName = "PrecioUnitario",
                 HeaderText = "Precio Unitario",
                 Width = 100,
-                DefaultCellStyle = { Format = "'$'#,0.00" }  // <-- aquí está el cambio
+                DefaultCellStyle = { Format = "'$'#,0.00" } // Formato de moneda
             });
 
+            // Evento para detectar selección de fila
             dgvVentasFac.SelectionChanged += DgvVentasFac_SelectionChanged;
         }
 
+        /// <summary>
+        /// Carga los datos desde la base de datos y los muestra en el DataGridView.
+        /// </summary>
         private void CargarDatos()
         {
             listaVentasFac = controller.ObtenerTodos();
@@ -75,6 +104,9 @@ namespace PanaderoApp.Forms
             LimpiarCampos();
         }
 
+        /// <summary>
+        /// Limpia todos los campos de entrada del formulario.
+        /// </summary>
         private void LimpiarCampos()
         {
             txtId.Clear();
@@ -84,15 +116,22 @@ namespace PanaderoApp.Forms
             txtPrecioUnitario.Clear();
         }
 
+        /// <summary>
+        /// Evento del botón "Nuevo". Limpia los campos para ingresar una nueva venta.
+        /// </summary>
         private void btnNuevo_Click(object sender, EventArgs e)
         {
             LimpiarCampos();
         }
 
+        /// <summary>
+        /// Evento del botón "Guardar". Guarda o actualiza un registro en la base de datos.
+        /// </summary>
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             try
             {
+                // Crea el objeto desde los campos del formulario
                 var ventaFac = new VentasFac
                 {
                     Id = string.IsNullOrEmpty(txtId.Text) ? 0 : int.Parse(txtId.Text),
@@ -102,6 +141,7 @@ namespace PanaderoApp.Forms
                     PrecioUnitario = decimal.Parse(txtPrecioUnitario.Text)
                 };
 
+                // Decide si crear o actualizar
                 bool resultado = ventaFac.Id == 0 ? controller.Crear(ventaFac) : controller.Actualizar(ventaFac);
 
                 if (resultado)
@@ -120,6 +160,9 @@ namespace PanaderoApp.Forms
             }
         }
 
+        /// <summary>
+        /// Evento del botón "Eliminar". Elimina el registro seleccionado.
+        /// </summary>
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtId.Text))
@@ -130,6 +173,7 @@ namespace PanaderoApp.Forms
 
             int id = int.Parse(txtId.Text);
 
+            // Confirmación antes de eliminar
             var confirm = MessageBox.Show("¿Está seguro de eliminar este registro?", "Confirmar", MessageBoxButtons.YesNo);
             if (confirm == DialogResult.Yes)
             {
@@ -146,6 +190,10 @@ namespace PanaderoApp.Forms
             }
         }
 
+        /// <summary>
+        /// Evento que se ejecuta cuando se selecciona una fila del DataGridView.
+        /// Muestra los datos seleccionados en los campos del formulario.
+        /// </summary>
         private void DgvVentasFac_SelectionChanged(object sender, EventArgs e)
         {
             if (dgvVentasFac.CurrentRow != null)

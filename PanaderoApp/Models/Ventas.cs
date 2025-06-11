@@ -53,6 +53,7 @@ namespace PanaderoApp.Models
         public int ProductoId { get; set; }
 
         public int Cantidad { get; set; }
+        public string NombreProducto { get; set; } // ✅ Esta línea es la que debes agregar
 
         public decimal PrecioUnitario { get; set; }
 
