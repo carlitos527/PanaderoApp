@@ -38,12 +38,18 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.panel6 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalles)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            this.panel4.SuspendLayout();
+            this.panel5.SuspendLayout();
+            this.panel6.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvProductos
@@ -51,12 +57,13 @@
             this.dgvProductos.AllowUserToAddRows = false;
             this.dgvProductos.AllowUserToDeleteRows = false;
             this.dgvProductos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvProductos.Location = new System.Drawing.Point(6, 66);
+            this.dgvProductos.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvProductos.Location = new System.Drawing.Point(0, 0);
             this.dgvProductos.MultiSelect = false;
             this.dgvProductos.Name = "dgvProductos";
             this.dgvProductos.ReadOnly = true;
             this.dgvProductos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvProductos.Size = new System.Drawing.Size(336, 287);
+            this.dgvProductos.Size = new System.Drawing.Size(431, 318);
             this.dgvProductos.TabIndex = 0;
             // 
             // dgvDetalles
@@ -73,13 +80,13 @@
             this.dgvDetalles.MultiSelect = false;
             this.dgvDetalles.Name = "dgvDetalles";
             this.dgvDetalles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvDetalles.Size = new System.Drawing.Size(616, 351);
+            this.dgvDetalles.Size = new System.Drawing.Size(538, 351);
             this.dgvDetalles.TabIndex = 1;
             // 
             // dtpFecha
             // 
             this.dtpFecha.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpFecha.Location = new System.Drawing.Point(149, 30);
+            this.dtpFecha.Location = new System.Drawing.Point(110, 14);
             this.dtpFecha.Name = "dtpFecha";
             this.dtpFecha.Size = new System.Drawing.Size(115, 22);
             this.dtpFecha.TabIndex = 2;
@@ -87,10 +94,10 @@
             // txtTotal
             // 
             this.txtTotal.Dock = System.Windows.Forms.DockStyle.Right;
-            this.txtTotal.Location = new System.Drawing.Point(492, 3);
+            this.txtTotal.Location = new System.Drawing.Point(428, 3);
             this.txtTotal.Name = "txtTotal";
             this.txtTotal.ReadOnly = true;
-            this.txtTotal.Size = new System.Drawing.Size(130, 22);
+            this.txtTotal.Size = new System.Drawing.Size(116, 22);
             this.txtTotal.TabIndex = 3;
             this.txtTotal.Text = "0.00";
             this.txtTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -99,7 +106,7 @@
             // 
             this.lblFecha.AutoSize = true;
             this.lblFecha.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblFecha.Location = new System.Drawing.Point(64, 30);
+            this.lblFecha.Location = new System.Drawing.Point(25, 18);
             this.lblFecha.Name = "lblFecha";
             this.lblFecha.Size = new System.Drawing.Size(56, 18);
             this.lblFecha.TabIndex = 4;
@@ -110,7 +117,7 @@
             this.lblTotal.AutoSize = true;
             this.lblTotal.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblTotal.Dock = System.Windows.Forms.DockStyle.Right;
-            this.lblTotal.Location = new System.Drawing.Point(433, 0);
+            this.lblTotal.Location = new System.Drawing.Point(373, 0);
             this.lblTotal.Name = "lblTotal";
             this.lblTotal.Size = new System.Drawing.Size(49, 27);
             this.lblTotal.TabIndex = 5;
@@ -121,7 +128,7 @@
             this.btnAgregarProducto.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.btnAgregarProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarProducto.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnAgregarProducto.Location = new System.Drawing.Point(20, 382);
+            this.btnAgregarProducto.Location = new System.Drawing.Point(39, 14);
             this.btnAgregarProducto.Name = "btnAgregarProducto";
             this.btnAgregarProducto.Size = new System.Drawing.Size(100, 88);
             this.btnAgregarProducto.TabIndex = 6;
@@ -133,7 +140,7 @@
             // 
             this.btnQuitarProducto.BackColor = System.Drawing.Color.Red;
             this.btnQuitarProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnQuitarProducto.Location = new System.Drawing.Point(161, 382);
+            this.btnQuitarProducto.Location = new System.Drawing.Point(196, 14);
             this.btnQuitarProducto.Name = "btnQuitarProducto";
             this.btnQuitarProducto.Size = new System.Drawing.Size(103, 88);
             this.btnQuitarProducto.TabIndex = 7;
@@ -147,7 +154,7 @@
             this.btnGuardarVenta.Dock = System.Windows.Forms.DockStyle.Right;
             this.btnGuardarVenta.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardarVenta.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnGuardarVenta.Location = new System.Drawing.Point(526, 30);
+            this.btnGuardarVenta.Location = new System.Drawing.Point(448, 30);
             this.btnGuardarVenta.Name = "btnGuardarVenta";
             this.btnGuardarVenta.Size = new System.Drawing.Size(96, 67);
             this.btnGuardarVenta.TabIndex = 8;
@@ -157,15 +164,13 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.lblFecha);
-            this.panel1.Controls.Add(this.dtpFecha);
-            this.panel1.Controls.Add(this.btnQuitarProducto);
-            this.panel1.Controls.Add(this.btnAgregarProducto);
-            this.panel1.Controls.Add(this.dgvProductos);
+            this.panel1.Controls.Add(this.panel6);
+            this.panel1.Controls.Add(this.panel5);
+            this.panel1.Controls.Add(this.panel4);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(353, 482);
+            this.panel1.Size = new System.Drawing.Size(431, 482);
             this.panel1.TabIndex = 9;
             // 
             // panel2
@@ -173,9 +178,9 @@
             this.panel2.Controls.Add(this.panel3);
             this.panel2.Controls.Add(this.dgvDetalles);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(353, 0);
+            this.panel2.Location = new System.Drawing.Point(431, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(658, 482);
+            this.panel2.Size = new System.Drawing.Size(580, 482);
             this.panel2.TabIndex = 10;
             // 
             // panel3
@@ -184,7 +189,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel3.Location = new System.Drawing.Point(0, 382);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(658, 100);
+            this.panel3.Size = new System.Drawing.Size(580, 100);
             this.panel3.TabIndex = 9;
             // 
             // tableLayoutPanel1
@@ -204,8 +209,37 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 27F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 73F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(625, 100);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(547, 100);
             this.tableLayoutPanel1.TabIndex = 9;
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.btnQuitarProducto);
+            this.panel4.Controls.Add(this.btnAgregarProducto);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel4.Location = new System.Drawing.Point(0, 367);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(431, 115);
+            this.panel4.TabIndex = 8;
+            // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.lblFecha);
+            this.panel5.Controls.Add(this.dtpFecha);
+            this.panel5.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel5.Location = new System.Drawing.Point(0, 0);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(431, 49);
+            this.panel5.TabIndex = 9;
+            // 
+            // panel6
+            // 
+            this.panel6.Controls.Add(this.dgvProductos);
+            this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel6.Location = new System.Drawing.Point(0, 49);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(431, 318);
+            this.panel6.TabIndex = 10;
             // 
             // FrmVenta
             // 
@@ -221,11 +255,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalles)).EndInit();
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
+            this.panel6.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -234,5 +271,8 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Panel panel6;
     }
 }

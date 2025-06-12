@@ -53,9 +53,13 @@ namespace PanaderoApp.Forms
             dgvProductos.ReadOnly = true;
             dgvProductos.AutoGenerateColumns = false;
             dgvProductos.Columns.Clear();
+
             dgvProductos.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Id", DataPropertyName = "Id", Width = 50 });
-            dgvProductos.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Nombre", DataPropertyName = "Nombre", Width = 150 });
-            dgvProductos.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Precio", DataPropertyName = "Precio", Width = 70 });
+            dgvProductos.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Nombre", DataPropertyName = "Nombre", Width = 250 });
+            dgvProductos.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Precio", DataPropertyName = "Precio", Width = 100 });
+
+            dgvProductos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            dgvProductos.ScrollBars = ScrollBars.Both; // ⬅️ Esto es clave
 
             dgvDetalles.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvDetalles.MultiSelect = false;
@@ -64,14 +68,16 @@ namespace PanaderoApp.Forms
             dgvDetalles.Columns.Clear();
 
             dgvDetalles.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "ProductoId", DataPropertyName = "ProductoId", Name = "ProductoId", Visible = false });
-            dgvDetalles.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Producto", DataPropertyName = "Nombre", ReadOnly = true, Width = 150 });
+            dgvDetalles.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Producto", DataPropertyName = "Nombre", ReadOnly = true, Width = 250 });
             dgvDetalles.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Cantidad", DataPropertyName = "Cantidad", Width = 70 });
-            dgvDetalles.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Precio Unitario", DataPropertyName = "PrecioUnitario", ReadOnly = true, Width = 90 });
-            dgvDetalles.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Subtotal", DataPropertyName = "Subtotal", ReadOnly = true, Width = 90 });
+            dgvDetalles.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Precio Unitario", DataPropertyName = "PrecioUnitario", ReadOnly = true, Width = 100 });
+            dgvDetalles.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Subtotal", DataPropertyName = "Subtotal", ReadOnly = true, Width = 100 });
 
+            dgvDetalles.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill; // ⬅️ si ajustar a Fill
+            dgvDetalles.ScrollBars = ScrollBars.Both; // ⬅️ Muy importante
             dgvDetalles.CellEndEdit += DgvDetalles_CellEndEdit;
-            dgvDetalles.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
+
 
         private void btnAgregarProducto_Click(object sender, EventArgs e)
         {

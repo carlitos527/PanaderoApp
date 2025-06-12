@@ -22,6 +22,9 @@ namespace PanaderoApp.Forms
         {
             InitializeComponent();
 
+            // Botón predeterminado al presionar Enter
+            this.AcceptButton = btnIniciarSesion;
+
             // Leer la cadena de conexión desde el archivo de configuración
             string connectionString = ConfigurationManager.ConnectionStrings["PanaderiaConnection"].ConnectionString;
             _usuarioController = new UsuarioController(connectionString);
