@@ -8,21 +8,31 @@ using System.Windows.Forms;
 
 namespace PanaderoApp.Forms
 {
+    /// <summary>
+    /// Formulario para registrar y gestionar ventas.
+    /// </summary>
     public partial class FrmVenta : Form
     {
         private readonly VentasController ventasController = new VentasController();
-        private List<Producto> productos = new List<Producto>(); // Lista de productos para selección
-        private List<VentasImpresion> detallesVenta = new List<VentasImpresion>(); // Detalles en la venta actual
+
+        // Lista de productos disponibles para la venta
+        private List<Producto> productos = new List<Producto>();
+
+        // Detalles (productos) de la venta actual
+        private List<VentasImpresion> detallesVenta = new List<VentasImpresion>();
 
         public FrmVenta()
         {
             InitializeComponent();
-            CargarProductos();
-            InicializarGrids();
+            CargarProductos();      // Carga los productos desde la base de datos
+            InicializarGrids();     // Configura las grillas (tablas)
             dtpFecha.Value = DateTime.Now;
-            txtTotal.Text = "0.00";
+            txtTotal.Text = "0.00"; // Inicializa el total
         }
 
+        /// <summary>
+        /// Carga los productos desde la base de datos y los muestra en la grilla de productos.
+        /// </summary>
         private void CargarProductos()
         {
             try
@@ -46,8 +56,12 @@ namespace PanaderoApp.Forms
             }
         }
 
+        /// <summary>
+        /// Configura la apariencia y funcionalidad de las grillas dgvProductos y dgvDetalles.
+        /// </summary>
         private void InicializarGrids()
         {
+            // Configuración de grilla de productos
             dgvProductos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvProductos.MultiSelect = false;
             dgvProductos.ReadOnly = true;
@@ -59,8 +73,9 @@ namespace PanaderoApp.Forms
             dgvProductos.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Precio", DataPropertyName = "Precio", Width = 100 });
 
             dgvProductos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
-            dgvProductos.ScrollBars = ScrollBars.Both; // ⬅️ Esto es clave
+            dgvProductos.ScrollBars = ScrollBars.Both;
 
+            // Configuración de grilla de detalles de la venta
             dgvDetalles.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvDetalles.MultiSelect = false;
             dgvDetalles.ReadOnly = false;
@@ -73,12 +88,15 @@ namespace PanaderoApp.Forms
             dgvDetalles.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Precio Unitario", DataPropertyName = "PrecioUnitario", ReadOnly = true, Width = 100 });
             dgvDetalles.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Subtotal", DataPropertyName = "Subtotal", ReadOnly = true, Width = 100 });
 
-            dgvDetalles.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill; // ⬅️ si ajustar a Fill
-            dgvDetalles.ScrollBars = ScrollBars.Both; // ⬅️ Muy importante
+            dgvDetalles.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvDetalles.ScrollBars = ScrollBars.Both;
+
             dgvDetalles.CellEndEdit += DgvDetalles_CellEndEdit;
         }
 
-
+        /// <summary>
+        /// Agrega el producto seleccionado en la grilla a los detalles de la venta.
+        /// </summary>
         private void btnAgregarProducto_Click(object sender, EventArgs e)
         {
             if (dgvProductos.CurrentRow == null)
@@ -89,6 +107,7 @@ namespace PanaderoApp.Forms
 
             var productoSeleccionado = (Producto)dgvProductos.CurrentRow.DataBoundItem;
 
+            // Si ya existe en la lista, aumenta la cantidad
             var detalleExistente = detallesVenta.FirstOrDefault(d => d.ProductoId == productoSeleccionado.Id);
             if (detalleExistente != null)
             {
@@ -96,6 +115,7 @@ namespace PanaderoApp.Forms
             }
             else
             {
+                // Agrega nuevo producto
                 detallesVenta.Add(new VentasImpresion
                 {
                     ProductoId = productoSeleccionado.Id,
@@ -108,6 +128,9 @@ namespace PanaderoApp.Forms
             CalcularTotal();
         }
 
+        /// <summary>
+        /// Quita el producto seleccionado de los detalles de la venta.
+        /// </summary>
         private void btnQuitarProducto_Click(object sender, EventArgs e)
         {
             if (dgvDetalles.CurrentRow == null)
@@ -130,6 +153,9 @@ namespace PanaderoApp.Forms
             }
         }
 
+        /// <summary>
+        /// Valida y actualiza la cantidad editada por el usuario en la grilla de detalles.
+        /// </summary>
         private void DgvDetalles_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             if (dgvDetalles.Columns[e.ColumnIndex].DataPropertyName == "Cantidad")
@@ -150,18 +176,40 @@ namespace PanaderoApp.Forms
             }
         }
 
+        /// <summary>
+        /// Calcula el subtotal de un detalle aplicando la promoción "3 panes por 1000".
+        /// </summary>
+        private decimal CalcularSubtotalConPromocion(VentasImpresion detalle)
+        {
+            var producto = productos.FirstOrDefault(p => p.Id == detalle.ProductoId);
+
+            if (producto != null && producto.Nombre.ToLower().Contains("pan"))
+            {
+                int gruposDeTres = detalle.Cantidad / 3;
+                int restantes = detalle.Cantidad % 3;
+                return gruposDeTres * 1000m + restantes * detalle.PrecioUnitario;
+            }
+
+            return detalle.Cantidad * detalle.PrecioUnitario;
+        }
+
+        /// <summary>
+        /// Actualiza la grilla de detalles con los datos actuales, aplicando promoción al "pan".
+        /// </summary>
         private void ActualizarGridDetalles()
         {
             var listaMostrar = detallesVenta.Select(d =>
             {
                 var producto = productos.FirstOrDefault(p => p.Id == d.ProductoId);
+                decimal subtotal = CalcularSubtotalConPromocion(d);
+
                 return new
                 {
                     d.ProductoId,
                     Nombre = producto?.Nombre ?? "N/D",
                     d.Cantidad,
                     PrecioUnitario = d.PrecioUnitario.ToString("F2"),
-                    Subtotal = (d.Cantidad * d.PrecioUnitario).ToString("F2")
+                    Subtotal = subtotal.ToString("F2")
                 };
             }).ToList();
 
@@ -169,12 +217,18 @@ namespace PanaderoApp.Forms
             dgvDetalles.DataSource = listaMostrar;
         }
 
+        /// <summary>
+        /// Calcula el total de la venta aplicando la promoción al "pan".
+        /// </summary>
         private void CalcularTotal()
         {
-            decimal total = detallesVenta.Sum(d => d.Cantidad * d.PrecioUnitario);
+            decimal total = detallesVenta.Sum(d => CalcularSubtotalConPromocion(d));
             txtTotal.Text = total.ToString("F2");
         }
 
+        /// <summary>
+        /// Guarda la venta en la base de datos y genera el recibo en PDF.
+        /// </summary>
         private void btnGuardarVenta_Click(object sender, EventArgs e)
         {
             if (detallesVenta.Count == 0)
@@ -183,14 +237,14 @@ namespace PanaderoApp.Forms
                 return;
             }
 
-            decimal totalCalculado = detallesVenta.Sum(d => d.Cantidad * d.PrecioUnitario);
+            decimal totalCalculado = detallesVenta.Sum(d => CalcularSubtotalConPromocion(d));
 
             var venta = new Venta
             {
                 Fecha = dtpFecha.Value,
                 TotalVenta = totalCalculado,
-                UsuarioId = 1, // TODO: reemplazar con usuario real
-                ClienteId = null,
+                UsuarioId = 1, // TODO: Reemplazar con el ID del usuario autenticado
+                ClienteId = null, // Si se implementa funcionalidad de cliente
                 Detalle = detallesVenta.Select(d =>
                 {
                     var producto = productos.FirstOrDefault(p => p.Id == d.ProductoId);
@@ -202,28 +256,29 @@ namespace PanaderoApp.Forms
                         NombreProducto = producto?.Nombre ?? "N/D"
                     };
                 }).ToList()
-
-
             };
 
+            // Validar la venta antes de guardar
             if (!venta.EsValida())
             {
                 MessageBox.Show("La venta no es válida. Revisa los datos.");
                 return;
             }
 
+            // Guardar en base de datos
             int ventaId = ventasController.CrearVentaConDetalle(venta);
 
             if (ventaId > 0)
             {
-                venta.Id = ventaId; // asignar el Id generado a la venta
+                venta.Id = ventaId; // Asignar ID generado
 
                 MessageBox.Show("Venta guardada exitosamente.");
 
-                // Generar y abrir el PDF del recibo en carpeta Recibos
+                // Generar PDF del recibo
                 var generadorPDF = new GenerarReciboPDF();
                 generadorPDF.GenerarRecibo(venta, "Recibos");
 
+                // Limpiar para nueva venta
                 detallesVenta.Clear();
                 ActualizarGridDetalles();
                 txtTotal.Text = "0.00";
@@ -233,10 +288,11 @@ namespace PanaderoApp.Forms
                 MessageBox.Show("Error al guardar la venta.");
             }
         }
-
     }
 
-    // Clase auxiliar Producto para demo (usa tu modelo real si tienes)
+    /// <summary>
+    /// Clase auxiliar de Producto para mostrar en grilla.
+    /// </summary>
     public class Producto
     {
         public int Id { get; set; }

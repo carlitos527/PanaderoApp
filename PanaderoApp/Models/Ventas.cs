@@ -25,7 +25,7 @@ namespace PanaderoApp.Models
 
         public Venta() { }
 
-        // Validación básica de la venta
+        // Validación básica de la venta con promoción para "pan"
         public bool EsValida()
         {
             if (Detalle == null || Detalle.Count == 0)
@@ -38,10 +38,22 @@ namespace PanaderoApp.Models
             if (Detalle.Any(d => !d.EsValido()))
                 return false;
 
-            // Validar que el total de la venta sea al menos igual a la suma del detalle
-            decimal sumaDetalle = Detalle.Sum(d => d.Cantidad * d.PrecioUnitario);
+            // Validar que el total de la venta sea al menos igual a la suma del detalle con promoción
+            decimal sumaDetalleConPromocion = Detalle.Sum(d =>
+            {
+                if (!string.IsNullOrEmpty(d.NombreProducto) && d.NombreProducto.ToLower().Contains("pan"))
+                {
+                    int gruposDe3 = d.Cantidad / 3;
+                    int restantes = d.Cantidad % 3;
+                    return gruposDe3 * 1000m + restantes * d.PrecioUnitario;
+                }
+                else
+                {
+                    return d.Cantidad * d.PrecioUnitario;
+                }
+            });
 
-            if (TotalVenta < sumaDetalle)
+            if (TotalVenta < sumaDetalleConPromocion)
                 return false;
 
             return true;
@@ -53,7 +65,7 @@ namespace PanaderoApp.Models
         public int ProductoId { get; set; }
 
         public int Cantidad { get; set; }
-        public string NombreProducto { get; set; } // ✅ Esta línea es la que debes agregar
+        public string NombreProducto { get; set; }
 
         public decimal PrecioUnitario { get; set; }
 
