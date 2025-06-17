@@ -1,21 +1,21 @@
-﻿using PanaderoApp.Models;                // Referencia a los modelos del sistema
+﻿using PanaderoApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace PanaderoApp.Controllers
 {
     /// <summary>
-    /// Controlador que gestiona las operaciones CRUD (Crear, Leer, Actualizar, Eliminar)
-    /// relacionadas con las ventas y sus detalles.
+    /// Controlador para gestionar las operaciones relacionadas con ventas y su detalle.
     /// </summary>
     public class VentasController
     {
         private readonly string connectionString;
 
         /// <summary>
-        /// Constructor que obtiene la cadena de conexión desde el archivo de configuración.
+        /// Constructor que inicializa la cadena de conexión desde el archivo de configuración.
         /// </summary>
         public VentasController()
         {
@@ -23,10 +23,11 @@ namespace PanaderoApp.Controllers
         }
 
         /// <summary>
-        /// Crea una nueva venta con sus productos (detalle), usando una transacción para asegurar consistencia.
+        /// Crea una venta junto con su detalle y actualiza el stock en StockReventas.
+        /// Todo se ejecuta en una transacción para asegurar atomicidad.
         /// </summary>
-        /// <param name="venta">Venta con información general y lista de productos.</param>
-        /// <returns>ID de la venta creada, o 0 si hubo error.</returns>
+        /// <param name="venta">Objeto Venta que contiene los datos de la venta y su detalle.</param>
+        /// <returns>El ID de la venta creada o 0 si falla la operación.</returns>
         public int CrearVentaConDetalle(Venta venta)
         {
             if (venta == null || venta.Detalle == null || venta.Detalle.Count == 0 || !venta.EsValida())
@@ -39,51 +40,60 @@ namespace PanaderoApp.Controllers
                 {
                     try
                     {
-                        // Insertar venta en tabla Ventas y obtener su ID generado
-                        string queryVenta = @"
-                            INSERT INTO Ventas (Fecha, TotalVenta, UsuarioId, ClienteId) 
-                            VALUES (@Fecha, @TotalVenta, @UsuarioId, @ClienteId);
-                            SELECT CAST(SCOPE_IDENTITY() AS int);";
-
-                        int ventaId;
-                        using (SqlCommand cmdVenta = new SqlCommand(queryVenta, con, tran))
+                        // Insertar la venta y obtener el Id generado
+                        using (SqlCommand cmdVenta = new SqlCommand("sp_InsertarVenta", con, tran))
                         {
+                            cmdVenta.CommandType = CommandType.StoredProcedure;
                             cmdVenta.Parameters.AddWithValue("@Fecha", venta.Fecha);
                             cmdVenta.Parameters.AddWithValue("@TotalVenta", venta.TotalVenta);
                             cmdVenta.Parameters.AddWithValue("@UsuarioId", venta.UsuarioId);
-                            cmdVenta.Parameters.AddWithValue("@ClienteId", venta.ClienteId.HasValue ?
-                                (object)venta.ClienteId.Value : DBNull.Value);
+                            cmdVenta.Parameters.AddWithValue("@ClienteId", (object)venta.ClienteId ?? DBNull.Value);
 
-                            ventaId = (int)cmdVenta.ExecuteScalar();
-                        }
-
-                        // Insertar cada detalle (producto vendido)
-                        string queryDetalle = @"
-                            INSERT INTO DetalleVenta (VentaId, ProductoId, Cantidad, PrecioUnitario) 
-                            VALUES (@VentaId, @ProductoId, @Cantidad, @PrecioUnitario)";
-
-                        foreach (var detalle in venta.Detalle)
-                        {
-                            using (SqlCommand cmdDetalle = new SqlCommand(queryDetalle, con, tran))
+                            SqlParameter outputId = new SqlParameter("@VentaId", SqlDbType.Int)
                             {
-                                cmdDetalle.Parameters.AddWithValue("@VentaId", ventaId);
-                                cmdDetalle.Parameters.AddWithValue("@ProductoId", detalle.ProductoId);
-                                cmdDetalle.Parameters.AddWithValue("@Cantidad", detalle.Cantidad);
-                                cmdDetalle.Parameters.AddWithValue("@PrecioUnitario", detalle.PrecioUnitario);
+                                Direction = ParameterDirection.Output
+                            };
+                            cmdVenta.Parameters.Add(outputId);
 
-                                cmdDetalle.ExecuteNonQuery();
+                            cmdVenta.ExecuteNonQuery();
+                            int ventaId = (int)outputId.Value;
+
+                            // Insertar detalles y descontar stock para cada producto
+                            foreach (var detalle in venta.Detalle)
+                            {
+                                // Insertar detalle de venta
+                                using (SqlCommand cmdDetalle = new SqlCommand("sp_InsertarDetalleVenta", con, tran))
+                                {
+                                    cmdDetalle.CommandType = CommandType.StoredProcedure;
+                                    cmdDetalle.Parameters.AddWithValue("@VentaId", ventaId);
+                                    cmdDetalle.Parameters.AddWithValue("@ProductoId", detalle.ProductoId);
+                                    cmdDetalle.Parameters.AddWithValue("@Cantidad", detalle.Cantidad);
+                                    cmdDetalle.Parameters.AddWithValue("@PrecioUnitario", detalle.PrecioUnitario);
+
+                                    cmdDetalle.ExecuteNonQuery();
+                                }
+
+                                // Registrar salida en StockReventa como "Vendido"
+                                using (SqlCommand cmdStock = new SqlCommand("InsertarStockReventaPorVenta", con, tran))
+                                {
+                                    cmdStock.CommandType = CommandType.StoredProcedure;
+                                    cmdStock.Parameters.AddWithValue("@ProductoId", detalle.ProductoId);
+                                    cmdStock.Parameters.AddWithValue("@Cantidad", detalle.Cantidad);
+                                    cmdStock.Parameters.AddWithValue("@Comentario", "Vendido"); // Esto asegura que no será NULL
+
+                                    cmdStock.ExecuteNonQuery();
+                                }
+
                             }
-                        }
 
-                        // Confirmar transacción
-                        tran.Commit();
-                        return ventaId;
+                            tran.Commit();
+                            return ventaId;
+                        }
                     }
                     catch (Exception ex)
                     {
-                        // Revertir si hubo error
                         tran.Rollback();
-                        System.Windows.Forms.MessageBox.Show("Error al guardar venta:\n" + ex.Message);
+                        LogError(ex);
                         return 0;
                     }
                 }
@@ -91,10 +101,10 @@ namespace PanaderoApp.Controllers
         }
 
         /// <summary>
-        /// Obtiene una venta específica junto con sus productos vendidos (detalle).
+        /// Obtiene una venta y su detalle por ID.
         /// </summary>
         /// <param name="id">ID de la venta.</param>
-        /// <returns>Objeto Venta con información general y detalles.</returns>
+        /// <returns>Objeto Venta con su detalle o null si no existe.</returns>
         public Venta ObtenerVentaConDetalle(int id)
         {
             Venta venta = null;
@@ -103,10 +113,10 @@ namespace PanaderoApp.Controllers
             {
                 con.Open();
 
-                // Obtener la venta general
-                string queryVenta = "SELECT * FROM Ventas WHERE Id = @Id";
-                using (SqlCommand cmdVenta = new SqlCommand(queryVenta, con))
+                // Obtener datos generales de la venta
+                using (SqlCommand cmdVenta = new SqlCommand("sp_ObtenerVenta", con))
                 {
+                    cmdVenta.CommandType = CommandType.StoredProcedure;
                     cmdVenta.Parameters.AddWithValue("@Id", id);
 
                     using (SqlDataReader readerVenta = cmdVenta.ExecuteReader())
@@ -119,25 +129,19 @@ namespace PanaderoApp.Controllers
                                 Fecha = (DateTime)readerVenta["Fecha"],
                                 TotalVenta = (decimal)readerVenta["TotalVenta"],
                                 UsuarioId = (int)readerVenta["UsuarioId"],
-                                ClienteId = readerVenta["ClienteId"] == DBNull.Value ?
-                                    (int?)null : (int)readerVenta["ClienteId"],
+                                ClienteId = readerVenta["ClienteId"] == DBNull.Value ? (int?)null : (int)readerVenta["ClienteId"],
                                 Detalle = new List<VentasImpresion>()
                             };
                         }
                     }
                 }
 
-                // Obtener productos de la venta si existe
+                // Si se encontró la venta, cargar el detalle
                 if (venta != null)
                 {
-                    string queryDetalle = @"
-                        SELECT dv.ProductoId, dv.Cantidad, dv.PrecioUnitario, p.Nombre AS NombreProducto
-                        FROM DetalleVenta dv
-                        INNER JOIN Productos p ON dv.ProductoId = p.Id
-                        WHERE dv.VentaId = @VentaId";
-
-                    using (SqlCommand cmdDetalle = new SqlCommand(queryDetalle, con))
+                    using (SqlCommand cmdDetalle = new SqlCommand("sp_ObtenerDetalleVenta", con))
                     {
+                        cmdDetalle.CommandType = CommandType.StoredProcedure;
                         cmdDetalle.Parameters.AddWithValue("@VentaId", venta.Id);
 
                         using (SqlDataReader readerDetalle = cmdDetalle.ExecuteReader())
@@ -161,7 +165,7 @@ namespace PanaderoApp.Controllers
         }
 
         /// <summary>
-        /// Obtiene todas las ventas (solo encabezados, sin detalle).
+        /// Obtiene todas las ventas sin cargar el detalle.
         /// </summary>
         /// <returns>Lista de ventas.</returns>
         public List<Venta> ObtenerVentas()
@@ -170,10 +174,12 @@ namespace PanaderoApp.Controllers
 
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                string query = "SELECT * FROM Ventas ORDER BY Fecha DESC";
-                using (SqlCommand cmd = new SqlCommand(query, con))
+                con.Open();
+
+                using (SqlCommand cmd = new SqlCommand("sp_ObtenerVentas", con))
                 {
-                    con.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
@@ -196,10 +202,10 @@ namespace PanaderoApp.Controllers
         }
 
         /// <summary>
-        /// Actualiza los datos principales de una venta (sin tocar los productos).
+        /// Actualiza datos generales de una venta (sin detalle).
         /// </summary>
-        /// <param name="venta">Venta modificada.</param>
-        /// <returns>True si se actualizó correctamente.</returns>
+        /// <param name="venta">Objeto Venta a actualizar.</param>
+        /// <returns>True si la actualización fue exitosa, false en caso contrario.</returns>
         public bool ActualizarVenta(Venta venta)
         {
             if (venta == null || !venta.EsValida() || venta.Id <= 0)
@@ -207,24 +213,17 @@ namespace PanaderoApp.Controllers
 
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                string query = @"
-                    UPDATE Ventas SET 
-                        Fecha = @Fecha,
-                        TotalVenta = @TotalVenta,
-                        UsuarioId = @UsuarioId,
-                        ClienteId = @ClienteId
-                    WHERE Id = @Id";
+                con.Open();
 
-                using (SqlCommand cmd = new SqlCommand(query, con))
+                using (SqlCommand cmd = new SqlCommand("sp_ActualizarVenta", con))
                 {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Id", venta.Id);
                     cmd.Parameters.AddWithValue("@Fecha", venta.Fecha);
                     cmd.Parameters.AddWithValue("@TotalVenta", venta.TotalVenta);
                     cmd.Parameters.AddWithValue("@UsuarioId", venta.UsuarioId);
-                    cmd.Parameters.AddWithValue("@ClienteId", venta.ClienteId.HasValue ?
-                        (object)venta.ClienteId.Value : DBNull.Value);
-                    cmd.Parameters.AddWithValue("@Id", venta.Id);
+                    cmd.Parameters.AddWithValue("@ClienteId", (object)venta.ClienteId ?? DBNull.Value);
 
-                    con.Open();
                     int rows = cmd.ExecuteNonQuery();
                     return rows > 0;
                 }
@@ -232,10 +231,11 @@ namespace PanaderoApp.Controllers
         }
 
         /// <summary>
-        /// Actualiza una venta completa, incluyendo sus productos (detalle). Usa transacción.
+        /// Actualiza una venta y su detalle, eliminando el detalle previo y agregando el nuevo.
+        /// Todo en una transacción.
         /// </summary>
-        /// <param name="venta">Venta con detalle actualizado.</param>
-        /// <returns>True si se actualizó correctamente.</returns>
+        /// <param name="venta">Objeto Venta con los datos actualizados.</param>
+        /// <returns>True si la actualización fue exitosa, false en caso contrario.</returns>
         public bool ActualizarVentaConDetalle(Venta venta)
         {
             if (venta == null || !venta.EsValida() || venta.Id <= 0)
@@ -248,43 +248,33 @@ namespace PanaderoApp.Controllers
                 {
                     try
                     {
-                        // Actualiza encabezado de la venta
-                        string queryUpdateVenta = @"
-                            UPDATE Ventas SET 
-                                Fecha = @Fecha,
-                                TotalVenta = @TotalVenta,
-                                UsuarioId = @UsuarioId,
-                                ClienteId = @ClienteId
-                            WHERE Id = @Id";
-
-                        using (SqlCommand cmd = new SqlCommand(queryUpdateVenta, con, tran))
+                        // Actualizar encabezado de la venta
+                        using (SqlCommand cmd = new SqlCommand("sp_ActualizarVenta", con, tran))
                         {
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.Parameters.AddWithValue("@Id", venta.Id);
                             cmd.Parameters.AddWithValue("@Fecha", venta.Fecha);
                             cmd.Parameters.AddWithValue("@TotalVenta", venta.TotalVenta);
                             cmd.Parameters.AddWithValue("@UsuarioId", venta.UsuarioId);
-                            cmd.Parameters.AddWithValue("@ClienteId", venta.ClienteId.HasValue ?
-                                (object)venta.ClienteId.Value : DBNull.Value);
-                            cmd.Parameters.AddWithValue("@Id", venta.Id);
+                            cmd.Parameters.AddWithValue("@ClienteId", (object)venta.ClienteId ?? DBNull.Value);
+
                             cmd.ExecuteNonQuery();
                         }
 
-                        // Borra detalles anteriores
-                        string deleteQuery = "DELETE FROM DetalleVenta WHERE VentaId = @VentaId";
-                        using (SqlCommand cmdDelete = new SqlCommand(deleteQuery, con, tran))
+                        // Eliminar detalles anteriores
+                        using (SqlCommand cmdDelete = new SqlCommand("sp_EliminarDetalleVenta", con, tran))
                         {
+                            cmdDelete.CommandType = CommandType.StoredProcedure;
                             cmdDelete.Parameters.AddWithValue("@VentaId", venta.Id);
                             cmdDelete.ExecuteNonQuery();
                         }
 
-                        // Inserta nuevos detalles
-                        string insertDetalle = @"
-                            INSERT INTO DetalleVenta (VentaId, ProductoId, Cantidad, PrecioUnitario) 
-                            VALUES (@VentaId, @ProductoId, @Cantidad, @PrecioUnitario)";
-
+                        // Insertar nuevos detalles
                         foreach (var detalle in venta.Detalle)
                         {
-                            using (SqlCommand cmdDetalle = new SqlCommand(insertDetalle, con, tran))
+                            using (SqlCommand cmdDetalle = new SqlCommand("sp_InsertarDetalleVenta", con, tran))
                             {
+                                cmdDetalle.CommandType = CommandType.StoredProcedure;
                                 cmdDetalle.Parameters.AddWithValue("@VentaId", venta.Id);
                                 cmdDetalle.Parameters.AddWithValue("@ProductoId", detalle.ProductoId);
                                 cmdDetalle.Parameters.AddWithValue("@Cantidad", detalle.Cantidad);
@@ -300,7 +290,7 @@ namespace PanaderoApp.Controllers
                     catch (Exception ex)
                     {
                         tran.Rollback();
-                        System.Windows.Forms.MessageBox.Show("Error al actualizar venta:\n" + ex.Message);
+                        LogError(ex);
                         return false;
                     }
                 }
@@ -308,10 +298,10 @@ namespace PanaderoApp.Controllers
         }
 
         /// <summary>
-        /// Elimina una venta junto con todos sus productos vendidos (detalle), de forma transaccional.
+        /// Elimina una venta y su detalle en una transacción.
         /// </summary>
         /// <param name="id">ID de la venta a eliminar.</param>
-        /// <returns>True si se eliminó correctamente.</returns>
+        /// <returns>True si la eliminación fue exitosa, false en caso contrario.</returns>
         public bool EliminarVenta(int id)
         {
             if (id <= 0)
@@ -324,18 +314,18 @@ namespace PanaderoApp.Controllers
                 {
                     try
                     {
-                        // Eliminar detalles primero
-                        string deleteDetalles = "DELETE FROM DetalleVenta WHERE VentaId = @VentaId";
-                        using (SqlCommand cmdDetalles = new SqlCommand(deleteDetalles, con, tran))
+                        // Eliminar detalles de la venta
+                        using (SqlCommand cmdDetalles = new SqlCommand("sp_EliminarDetalleVenta", con, tran))
                         {
+                            cmdDetalles.CommandType = CommandType.StoredProcedure;
                             cmdDetalles.Parameters.AddWithValue("@VentaId", id);
                             cmdDetalles.ExecuteNonQuery();
                         }
 
-                        // Luego eliminar la venta principal
-                        string deleteVenta = "DELETE FROM Ventas WHERE Id = @Id";
-                        using (SqlCommand cmdVenta = new SqlCommand(deleteVenta, con, tran))
+                        // Eliminar la venta
+                        using (SqlCommand cmdVenta = new SqlCommand("sp_EliminarVenta", con, tran))
                         {
+                            cmdVenta.CommandType = CommandType.StoredProcedure;
                             cmdVenta.Parameters.AddWithValue("@Id", id);
                             int rows = cmdVenta.ExecuteNonQuery();
 
@@ -346,11 +336,20 @@ namespace PanaderoApp.Controllers
                     catch (Exception ex)
                     {
                         tran.Rollback();
-                        System.Windows.Forms.MessageBox.Show("Error al eliminar venta:\n" + ex.Message);
+                        LogError(ex);
                         return false;
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Método privado para registrar errores en un archivo de log.
+        /// </summary>
+        /// <param name="ex">Excepción capturada.</param>
+        private void LogError(Exception ex)
+        {
+            PanaderoApp.Class.LogError.Registrar(ex);
         }
     }
 }

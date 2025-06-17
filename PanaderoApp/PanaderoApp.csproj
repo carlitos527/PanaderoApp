@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class\GenerarReciboPDF.cs" />
+    <Compile Include="Class\LogError.cs" />
     <Compile Include="Class\PasswordHelper.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\IngredienteController.cs" />

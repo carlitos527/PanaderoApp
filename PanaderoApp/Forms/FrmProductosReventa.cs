@@ -1,209 +1,176 @@
 ﻿using System;
 using System.Data;
 using System.Windows.Forms;
-using System.Data.SqlClient;
-using System.Configuration;
+using PanaderoApp.Models;
+using PanaderoApp.Controllers;
 
 namespace PanaderoApp.Forms
 {
-    /// <summary>
-    /// Formulario para gestionar productos y registrar movimientos de stock con comentarios.
-    /// </summary>
     public partial class FrmProductosReventa : Form
     {
-        /// <summary>
-        /// Cadena de conexión extraída del archivo de configuración App.config.
-        /// </summary>
-        private string connectionString = ConfigurationManager.ConnectionStrings["PanaderiaConnection"].ConnectionString;
+        private readonly ProductosReventaController controller = new ProductosReventaController();
 
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="FrmProductosReventa"/>.
-        /// </summary>
         public FrmProductosReventa()
         {
             InitializeComponent();
             CargarProductos();
 
-            // Oculta botones no usados en esta ventana
             btnAgregar.Visible = false;
             btnActualizar.Visible = false;
             btnEliminar.Visible = false;
 
-            // Evita que se editen manualmente estos campos
             txtNombre.ReadOnly = true;
             txtPrecio.ReadOnly = true;
 
-            // Captura la tecla Enter en txtCantidad para registrar entrada rápidamente
             txtCantidad.KeyDown += TxtCantidad_KeyDown;
+
+            dtpFechaVencimiento.MinDate = DateTime.Today;
+            dtpFechaVencimiento.Format = DateTimePickerFormat.Short;
+
+            dtpFechaIngreso.Format = DateTimePickerFormat.Short;
+            dtpFechaIngreso.Value = DateTime.Now;
+            dtpFechaIngreso.Enabled = false;
+
+            // Inicializamos el texto del Label que ya está en el diseñador
+            lblStockActual.Text = "Stock Actual: -";
+            lblStockActual.AutoSize = true;
+            // Si quieres ajustar posición, hazlo en el diseñador visual o aquí:
+            // lblStockActual.Location = new System.Drawing.Point(20, 320);
         }
 
-        /// <summary>
-        /// Carga los productos desde la base de datos y los muestra en el DataGridView.
-        /// </summary>
         private void CargarProductos()
         {
-            using (SqlConnection con = new SqlConnection(connectionString))
-            {
-                string query = "SELECT * FROM Productos";
-                SqlDataAdapter adapter = new SqlDataAdapter(query, con);
-                DataTable dt = new DataTable();
-                adapter.Fill(dt);
+            var productos = controller.ObtenerProductos();
 
-                dgvProductos.DataSource = dt;
-                dgvProductos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                dgvProductos.ReadOnly = true;
-                dgvProductos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            }
+            dgvProductos.DataSource = null;
+            dgvProductos.DataSource = productos;
+            dgvProductos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvProductos.ReadOnly = true;
+            dgvProductos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvProductos.MultiSelect = false;
         }
 
-        /// <summary>
-        /// Evento que se ejecuta al hacer clic en una fila del DataGridView.
-        /// Carga los datos del producto seleccionado en los campos de texto.
-        /// </summary>
-        /// <param name="sender">Objeto que genera el evento.</param>
-        /// <param name="e">Argumentos del evento de celda.</param>
         private void dgvProductos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
+            if (e.RowIndex < 0) return;
+
+            var fila = dgvProductos.Rows[e.RowIndex];
+            if (fila.DataBoundItem is Productos producto)
             {
-                DataGridViewRow row = dgvProductos.Rows[e.RowIndex];
-                txtId.Text = row.Cells["Id"].Value.ToString();
-                txtNombre.Text = row.Cells["Nombre"].Value.ToString();
-                txtPrecio.Text = row.Cells["PrecioVenta"].Value.ToString();
+                txtId.Text = producto.Id.ToString();
+                txtNombre.Text = producto.Nombre;
+                txtPrecio.Text = producto.PrecioVenta.ToString("F2");
+
+                decimal stockActual = controller.ObtenerStockActual(producto.Id);
+                lblStockActual.Text = $"Stock Actual: {stockActual}";
+
+                dtpFechaIngreso.Value = DateTime.Now;
             }
         }
 
-        /// <summary>
-        /// Limpia todos los campos de texto del formulario, incluyendo el comentario.
-        /// </summary>
         private void LimpiarCampos()
         {
-            txtId.Text = "";
-            txtNombre.Text = "";
-            txtPrecio.Text = "";
-            txtCantidad.Text = "";
-            txtComentario.Text = "";
+            txtId.Clear();
+            txtNombre.Clear();
+            txtPrecio.Clear();
+            txtCantidad.Clear();
+            txtComentario.Clear();
+            dtpFechaVencimiento.Value = DateTime.Today;
+            dtpFechaIngreso.Value = DateTime.Now;
+
+            lblStockActual.Text = "Stock Actual: -";
         }
 
-        /// <summary>
-        /// Registra un movimiento de stock (entrada o salida) para el producto seleccionado.
-        /// </summary>
-        /// <param name="tipoMovimiento">Tipo de movimiento ("Entrada" o "Salida").</param>
-        /// <param name="cantidad">Cantidad a registrar.</param>
-        /// <param name="comentario">Comentario opcional para el movimiento.</param>
-        private void RegistrarMovimiento(string tipoMovimiento, decimal cantidad, string comentario = null)
+        private void RegistrarMovimiento(string tipoMovimiento, decimal cantidad, DateTime fechaVencimiento, string comentario = null)
         {
             if (dgvProductos.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Seleccione un producto en la lista.");
+                MessageBox.Show("Seleccione un producto en la lista.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            var selectedRow = dgvProductos.SelectedRows[0];
-            int productoId = Convert.ToInt32(selectedRow.Cells["Id"].Value);
-
-            using (SqlConnection con = new SqlConnection(connectionString))
+            if (!(dgvProductos.SelectedRows[0].DataBoundItem is Productos producto))
             {
-                string query = @"INSERT INTO StockReventa (ProductoId, TipoMovimiento, Cantidad, Comentario)
-                                 VALUES (@productoId, @tipoMovimiento, @cantidad, @comentario)";
-                SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@productoId", productoId);
-                cmd.Parameters.AddWithValue("@tipoMovimiento", tipoMovimiento);
-                cmd.Parameters.AddWithValue("@cantidad", cantidad);
-                cmd.Parameters.AddWithValue("@comentario", (object)comentario ?? DBNull.Value);
-                con.Open();
-                cmd.ExecuteNonQuery();
+                MessageBox.Show("Producto seleccionado inválido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
+
+            var movimiento = new StockReventa
+            {
+                ProductoId = producto.Id,
+                TipoMovimiento = tipoMovimiento,
+                Cantidad = cantidad,
+                Fecha = dtpFechaIngreso.Value,
+                FechaVencimiento = fechaVencimiento,
+                Comentario = string.IsNullOrWhiteSpace(comentario) ? null : comentario.Trim()
+            };
+
+            controller.AgregarMovimientoStock(movimiento);
         }
 
-        /// <summary>
-        /// Maneja el clic en el botón para registrar una entrada de stock.
-        /// Valida cantidad y registra el movimiento con comentario.
-        /// </summary>
-        /// <param name="sender">Objeto que genera el evento.</param>
-        /// <param name="e">Argumentos del evento.</param>
         private void btnRegistrarEntrada_Click(object sender, EventArgs e)
         {
             if (!decimal.TryParse(txtCantidad.Text, out decimal cantidad) || cantidad <= 0)
             {
-                MessageBox.Show("Ingrese una cantidad válida.");
+                MessageBox.Show("Ingrese una cantidad válida.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            RegistrarMovimiento("Entrada", cantidad, txtComentario.Text);
-            MessageBox.Show("Movimiento de entrada registrado.");
+
+            DateTime fechaVencimiento = dtpFechaVencimiento.Value.Date;
+            if (fechaVencimiento < DateTime.Today)
+            {
+                MessageBox.Show("La fecha de vencimiento no puede ser anterior a hoy.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            RegistrarMovimiento("Entrada", cantidad, fechaVencimiento, txtComentario.Text);
+            MessageBox.Show("Movimiento de entrada registrado.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
             LimpiarCampos();
+            CargarProductos();
         }
 
-        /// <summary>
-        /// Maneja el clic en el botón para registrar una salida de stock.
-        /// Valida cantidad, verifica stock disponible y registra el movimiento con comentario.
-        /// </summary>
-        /// <param name="sender">Objeto que genera el evento.</param>
-        /// <param name="e">Argumentos del evento.</param>
         private void btnRegistrarSalida_Click(object sender, EventArgs e)
         {
             if (!decimal.TryParse(txtCantidad.Text, out decimal cantidad) || cantidad <= 0)
             {
-                MessageBox.Show("Ingrese una cantidad válida.");
+                MessageBox.Show("Ingrese una cantidad válida.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             if (dgvProductos.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Seleccione un producto en la lista.");
+                MessageBox.Show("Seleccione un producto en la lista.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            int productoId = Convert.ToInt32(dgvProductos.SelectedRows[0].Cells["Id"].Value);
-            decimal stockActual = ObtenerStockActual(productoId);
+            if (!(dgvProductos.SelectedRows[0].DataBoundItem is Productos producto))
+            {
+                MessageBox.Show("Producto seleccionado inválido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            decimal stockActual = controller.ObtenerStockActual(producto.Id);
 
             if (cantidad > stockActual)
             {
-                MessageBox.Show($"Stock insuficiente. Stock actual: {stockActual}");
+                MessageBox.Show($"Stock insuficiente. Stock actual: {stockActual}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            RegistrarMovimiento("Salida", cantidad, txtComentario.Text);
-            MessageBox.Show("Movimiento de salida registrado.");
+            DateTime fechaVencimiento = dtpFechaVencimiento.Value.Date;
+
+            RegistrarMovimiento("Salida", cantidad, fechaVencimiento, txtComentario.Text);
+            MessageBox.Show("Movimiento de salida registrado.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
             LimpiarCampos();
+            CargarProductos();
         }
 
-        /// <summary>
-        /// Obtiene el stock actual para un producto específico calculando entradas menos salidas.
-        /// </summary>
-        /// <param name="productoId">Identificador del producto.</param>
-        /// <returns>Stock actual disponible.</returns>
-        private decimal ObtenerStockActual(int productoId)
-        {
-            decimal entradas = 0, salidas = 0;
-            using (SqlConnection con = new SqlConnection(connectionString))
-            {
-                string queryEntradas = "SELECT ISNULL(SUM(Cantidad), 0) FROM StockReventa WHERE ProductoId = @id AND TipoMovimiento = 'Entrada'";
-                SqlCommand cmdEntradas = new SqlCommand(queryEntradas, con);
-                cmdEntradas.Parameters.AddWithValue("@id", productoId);
-
-                string querySalidas = "SELECT ISNULL(SUM(Cantidad), 0) FROM StockReventa WHERE ProductoId = @id AND TipoMovimiento = 'Salida'";
-                SqlCommand cmdSalidas = new SqlCommand(querySalidas, con);
-                cmdSalidas.Parameters.AddWithValue("@id", productoId);
-
-                con.Open();
-                entradas = (decimal)cmdEntradas.ExecuteScalar();
-                salidas = (decimal)cmdSalidas.ExecuteScalar();
-            }
-            return entradas - salidas;
-        }
-
-        /// <summary>
-        /// Evento para capturar la tecla Enter en el campo de cantidad y registrar entrada.
-        /// </summary>
-        /// <param name="sender">Objeto que genera el evento.</param>
-        /// <param name="e">Argumentos del evento de tecla.</param>
         private void TxtCantidad_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
-                btnRegistrarEntrada.PerformClick(); // Ejecuta entrada de stock con Enter
+                btnRegistrarEntrada.PerformClick();
             }
         }
     }
