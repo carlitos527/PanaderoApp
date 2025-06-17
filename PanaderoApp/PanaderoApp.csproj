@@ -65,6 +65,7 @@
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\IngredienteController.cs" />
     <Compile Include="Controllers\ProductosController.cs" />
+    <Compile Include="Controllers\ProductosReventaController.cs" />
     <Compile Include="Controllers\ProveedoresController.cs" />
     <Compile Include="Controllers\RecetasController.cs" />
     <Compile Include="Controllers\StockMovimientosController.cs" />
@@ -112,6 +113,12 @@
     </Compile>
     <Compile Include="Forms\FrmProductos.Designer.cs">
       <DependentUpon>FrmProductos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmProductosReventa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmProductosReventa.Designer.cs">
+      <DependentUpon>FrmProductosReventa.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FrmProveedores.cs">
       <SubType>Form</SubType>
@@ -187,6 +194,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmProductos.resx">
       <DependentUpon>FrmProductos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmProductosReventa.resx">
+      <DependentUpon>FrmProductosReventa.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmProveedores.resx">
       <DependentUpon>FrmProveedores.cs</DependentUpon>

@@ -8,33 +8,24 @@ using System.Windows.Forms;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.Configuration;
+using System.Drawing; // Necesario para convertir ICO a imagen
 
 namespace PanaderoApp.Class
 {
     /// <summary>
     /// Clase encargada de generar recibos en formato PDF para ventas realizadas.
-    /// El diseño del documento está optimizado para impresoras térmicas de 5 cm de ancho.
-    /// También aplica la promoción "3 panes por 1000" automáticamente.
+    /// Optimizada para impresoras térmicas de 5 cm de ancho.
+    /// Aplica la promoción "3 panes por 1000" automáticamente.
     /// </summary>
     public class GenerarReciboPDF
     {
         private readonly string connectionString;
 
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="GenerarReciboPDF"/>,
-        /// obteniendo la cadena de conexión desde el archivo de configuración.
-        /// </summary>
         public GenerarReciboPDF()
         {
             connectionString = ConfigurationManager.ConnectionStrings["PanaderiaConnection"].ConnectionString;
         }
 
-        /// <summary>
-        /// Genera un archivo PDF que representa el recibo de una venta.
-        /// Aplica promociones automáticamente y guarda un registro en la base de datos.
-        /// </summary>
-        /// <param name="venta">Objeto de tipo <see cref="Venta"/> que contiene el detalle de productos vendidos.</param>
-        /// <param name="carpetaDestino">Ruta de carpeta donde se guardará el archivo PDF. Por defecto: "Recibos".</param>
         public void GenerarRecibo(Venta venta, string carpetaDestino = "Recibos")
         {
             if (venta == null || venta.Id <= 0)
@@ -55,8 +46,8 @@ namespace PanaderoApp.Class
                 string nombreArchivo = $"Recibo_{venta.Id}_{timestamp}.pdf";
                 string rutaCompleta = Path.Combine(carpetaDestino, nombreArchivo);
 
-                // Tamaño personalizado para impresora térmica: 222 puntos = ~5.8 cm de ancho
-                Rectangle pageSize = new Rectangle(222f, 600f);
+                // ⚠️ Usamos el nombre completo para evitar ambigüedad
+                iTextSharp.text.Rectangle pageSize = new iTextSharp.text.Rectangle(222f, 600f);
 
                 using (Document doc = new Document(pageSize, 8, 5, 8, 8))
                 using (FileStream fs = new FileStream(rutaCompleta, FileMode.Create))
@@ -91,12 +82,6 @@ namespace PanaderoApp.Class
             }
         }
 
-        /// <summary>
-        /// Calcula el subtotal aplicando la promoción "3 panes por 1000", 
-        /// si el nombre del producto contiene la palabra "pan".
-        /// </summary>
-        /// <param name="detalle">Detalle de producto vendido.</param>
-        /// <returns>Subtotal ajustado con promoción si aplica.</returns>
         private decimal CalcularSubtotalConPromocion(VentasImpresion detalle)
         {
             if (detalle.NombreProducto != null && detalle.NombreProducto.ToLower().Contains("pan"))
@@ -109,23 +94,27 @@ namespace PanaderoApp.Class
             return detalle.Cantidad * detalle.PrecioUnitario;
         }
 
-        /// <summary>
-        /// Agrega el logotipo de la empresa al documento PDF.
-        /// El logo se ajusta para no superar el ancho permitido de la impresora térmica.
-        /// </summary>
-        /// <param name="doc">Instancia del documento PDF.</param>
         private void AgregarLogoImagen(Document doc)
         {
             try
             {
-                string rutaLogo = @"D:\Proyecto\PanaderiaApp\PanaderoApp\img\panadero.png";
+                string rutaLogo = @"D:\Proyecto\PanaderiaApp\PanaderoApp\img\Panadero.png";
 
                 if (File.Exists(rutaLogo))
                 {
+                    // Cargar la imagen PNG directamente
                     iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(rutaLogo);
-                    logo.ScaleToFit(130f, 50f);
+
+                    // Ajustar tamaño para evitar cortes (puedes modificar estos valores)
+                    logo.ScaleToFit(110f, 45f);
+
+                    // Centrar la imagen
                     logo.Alignment = Element.ALIGN_CENTER;
-                    logo.SpacingAfter = 8f;
+
+                    // Espaciados para que no quede pegado a otros elementos
+                    logo.SpacingBefore = 8f;
+                    logo.SpacingAfter = 12f;
+
                     doc.Add(logo);
                 }
                 else
@@ -141,11 +130,7 @@ namespace PanaderoApp.Class
             }
         }
 
-        /// <summary>
-        /// Agrega información básica del negocio y la fecha de la venta.
-        /// </summary>
-        /// <param name="doc">Instancia del documento PDF.</param>
-        /// <param name="fechaVenta">Fecha y hora de la venta.</param>
+
         private void AgregarEncabezado(Document doc, DateTime fechaVenta)
         {
             Paragraph header = new Paragraph("PANADERÍA LA ALEMANA",
@@ -161,12 +146,6 @@ namespace PanaderoApp.Class
             doc.Add(new Paragraph("------------------------------------") { Alignment = Element.ALIGN_CENTER });
         }
 
-        /// <summary>
-        /// Agrega el detalle de productos vendidos en forma de tabla.
-        /// Incluye aplicación de promociones si corresponde.
-        /// </summary>
-        /// <param name="doc">Instancia del documento PDF.</param>
-        /// <param name="venta">Venta con el detalle de productos.</param>
         private void AgregarDetalleVenta(Document doc, Venta venta)
         {
             PdfPTable table = new PdfPTable(4)
@@ -194,11 +173,6 @@ namespace PanaderoApp.Class
             doc.Add(new Paragraph("------------------------------------") { Alignment = Element.ALIGN_CENTER });
         }
 
-        /// <summary>
-        /// Agrega el total a pagar, la forma de pago y notas legales al PDF.
-        /// </summary>
-        /// <param name="doc">Instancia del documento PDF.</param>
-        /// <param name="totalVenta">Total de la venta.</param>
         private void AgregarTotalYNotas(Document doc, decimal totalVenta)
         {
             Paragraph total = new Paragraph($"TOTAL A PAGAR: {totalVenta.ToString("C0")}",
@@ -225,12 +199,6 @@ namespace PanaderoApp.Class
             });
         }
 
-        /// <summary>
-        /// Registra en la base de datos el recibo generado para la venta.
-        /// </summary>
-        /// <param name="ventaId">ID de la venta correspondiente.</param>
-        /// <param name="nombreArchivo">Nombre del archivo PDF.</param>
-        /// <param name="rutaArchivo">Ruta completa del archivo PDF.</param>
         private void GuardarRegistroRecibo(int ventaId, string nombreArchivo, string rutaArchivo)
         {
             try

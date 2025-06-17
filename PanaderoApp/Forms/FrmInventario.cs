@@ -46,5 +46,11 @@ namespace PanaderoApp.Forms
             frmStockMovimientos.ShowDialog();
 
         }
+
+        private void ProductosReventa_Click_1(object sender, EventArgs e)
+        {
+            FrmProductosReventa frmProductosReventa = new FrmProductosReventa();
+            frmProductosReventa.ShowDialog();
+        }
     }
 }

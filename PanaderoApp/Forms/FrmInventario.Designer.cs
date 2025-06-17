@@ -1,4 +1,5 @@
 ﻿using FontAwesome.Sharp;
+using PanaderoApp.Controllers;
 
 namespace PanaderoApp.Forms
 {
@@ -7,6 +8,7 @@ namespace PanaderoApp.Forms
         private System.ComponentModel.IContainer components = null;
         private IconButton btnIngredientes;
         private IconButton btnStockMovimientos;
+        private IconButton btnProductosReventa;
 
         protected override void Dispose(bool disposing)
         {
@@ -22,6 +24,7 @@ namespace PanaderoApp.Forms
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmInventario));
             this.btnIngredientes = new FontAwesome.Sharp.IconButton();
             this.btnStockMovimientos = new FontAwesome.Sharp.IconButton();
+            this.btnProductosReventa = new FontAwesome.Sharp.IconButton();
             this.SuspendLayout();
             // 
             // btnIngredientes
@@ -47,7 +50,7 @@ namespace PanaderoApp.Forms
             this.btnStockMovimientos.IconColor = System.Drawing.Color.Black;
             this.btnStockMovimientos.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnStockMovimientos.IconSize = 32;
-            this.btnStockMovimientos.Location = new System.Drawing.Point(50, 120);
+            this.btnStockMovimientos.Location = new System.Drawing.Point(273, 46);
             this.btnStockMovimientos.Name = "btnStockMovimientos";
             this.btnStockMovimientos.Size = new System.Drawing.Size(200, 60);
             this.btnStockMovimientos.TabIndex = 1;
@@ -56,9 +59,26 @@ namespace PanaderoApp.Forms
             this.btnStockMovimientos.UseVisualStyleBackColor = false;
             this.btnStockMovimientos.Click += new System.EventHandler(this.button1_Click);
             // 
+            // btnProductosReventa
+            // 
+            this.btnProductosReventa.BackColor = System.Drawing.Color.DarkOrange;
+            this.btnProductosReventa.IconChar = FontAwesome.Sharp.IconChar.CartShopping;
+            this.btnProductosReventa.IconColor = System.Drawing.Color.Black;
+            this.btnProductosReventa.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnProductosReventa.IconSize = 32;
+            this.btnProductosReventa.Location = new System.Drawing.Point(164, 141);
+            this.btnProductosReventa.Name = "btnProductosReventa";
+            this.btnProductosReventa.Size = new System.Drawing.Size(200, 60);
+            this.btnProductosReventa.TabIndex = 2;
+            this.btnProductosReventa.Text = "Productos Reventa";
+            this.btnProductosReventa.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnProductosReventa.UseVisualStyleBackColor = false;
+            this.btnProductosReventa.Click += new System.EventHandler(this.ProductosReventa_Click_1);
+            // 
             // FrmInventario
             // 
-            this.ClientSize = new System.Drawing.Size(300, 220);
+            this.ClientSize = new System.Drawing.Size(560, 240);
+            this.Controls.Add(this.btnProductosReventa);
             this.Controls.Add(this.btnStockMovimientos);
             this.Controls.Add(this.btnIngredientes);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

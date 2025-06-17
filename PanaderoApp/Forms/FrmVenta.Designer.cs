@@ -35,21 +35,21 @@
             this.btnQuitarProducto = new System.Windows.Forms.Button();
             this.btnGuardarVenta = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.panel6 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalles)).BeginInit();
             this.panel1.SuspendLayout();
+            this.panel6.SuspendLayout();
+            this.panel5.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            this.panel4.SuspendLayout();
-            this.panel5.SuspendLayout();
-            this.panel6.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvProductos
@@ -173,6 +173,35 @@
             this.panel1.Size = new System.Drawing.Size(431, 482);
             this.panel1.TabIndex = 9;
             // 
+            // panel6
+            // 
+            this.panel6.Controls.Add(this.dgvProductos);
+            this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel6.Location = new System.Drawing.Point(0, 49);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(431, 318);
+            this.panel6.TabIndex = 10;
+            // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.lblFecha);
+            this.panel5.Controls.Add(this.dtpFecha);
+            this.panel5.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel5.Location = new System.Drawing.Point(0, 0);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(431, 49);
+            this.panel5.TabIndex = 9;
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.btnQuitarProducto);
+            this.panel4.Controls.Add(this.btnAgregarProducto);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel4.Location = new System.Drawing.Point(0, 367);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(431, 115);
+            this.panel4.TabIndex = 8;
+            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.panel3);
@@ -212,35 +241,6 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(547, 100);
             this.tableLayoutPanel1.TabIndex = 9;
             // 
-            // panel4
-            // 
-            this.panel4.Controls.Add(this.btnQuitarProducto);
-            this.panel4.Controls.Add(this.btnAgregarProducto);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel4.Location = new System.Drawing.Point(0, 367);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(431, 115);
-            this.panel4.TabIndex = 8;
-            // 
-            // panel5
-            // 
-            this.panel5.Controls.Add(this.lblFecha);
-            this.panel5.Controls.Add(this.dtpFecha);
-            this.panel5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel5.Location = new System.Drawing.Point(0, 0);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(431, 49);
-            this.panel5.TabIndex = 9;
-            // 
-            // panel6
-            // 
-            this.panel6.Controls.Add(this.dgvProductos);
-            this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel6.Location = new System.Drawing.Point(0, 49);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(431, 318);
-            this.panel6.TabIndex = 10;
-            // 
             // FrmVenta
             // 
             this.ClientSize = new System.Drawing.Size(1011, 482);
@@ -255,14 +255,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalles)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.panel6.ResumeLayout(false);
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
+            this.panel4.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            this.panel4.ResumeLayout(false);
-            this.panel5.ResumeLayout(false);
-            this.panel5.PerformLayout();
-            this.panel6.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

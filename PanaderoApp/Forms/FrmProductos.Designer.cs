@@ -35,8 +35,8 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.btnEliminar = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -170,15 +170,6 @@
             this.panel3.Size = new System.Drawing.Size(593, 118);
             this.panel3.TabIndex = 8;
             // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.dgvProductos);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 118);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(873, 316);
-            this.panel2.TabIndex = 10;
-            // 
             // btnEliminar
             // 
             this.btnEliminar.BackColor = System.Drawing.Color.Red;
@@ -191,6 +182,15 @@
             this.btnEliminar.Text = "🚮";
             this.btnEliminar.UseVisualStyleBackColor = false;
             this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.dgvProductos);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(0, 118);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(873, 316);
+            this.panel2.TabIndex = 10;
             // 
             // FrmProductos
             // 

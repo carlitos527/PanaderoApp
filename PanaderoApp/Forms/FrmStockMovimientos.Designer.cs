@@ -273,6 +273,7 @@
             this.ClientSize = new System.Drawing.Size(1250, 595);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmStockMovimientos";
             this.Text = "Gestión de Movimientos de Stock";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
