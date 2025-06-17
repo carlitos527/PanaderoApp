@@ -31,11 +31,8 @@ namespace PanaderoApp.Forms
             dtpFechaIngreso.Value = DateTime.Now;
             dtpFechaIngreso.Enabled = false;
 
-            // Inicializamos el texto del Label que ya está en el diseñador
             lblStockActual.Text = "Stock Actual: -";
             lblStockActual.AutoSize = true;
-            // Si quieres ajustar posición, hazlo en el diseñador visual o aquí:
-            // lblStockActual.Location = new System.Drawing.Point(20, 320);
         }
 
         private void CargarProductos()
@@ -61,11 +58,16 @@ namespace PanaderoApp.Forms
                 txtNombre.Text = producto.Nombre;
                 txtPrecio.Text = producto.PrecioVenta.ToString("F2");
 
-                decimal stockActual = controller.ObtenerStockActual(producto.Id);
-                lblStockActual.Text = $"Stock Actual: {stockActual}";
+                ActualizarStockActual(producto.Id);
 
                 dtpFechaIngreso.Value = DateTime.Now;
             }
+        }
+
+        private void ActualizarStockActual(int productoId)
+        {
+            decimal stockActual = controller.ObtenerStockActual(productoId);
+            lblStockActual.Text = $"Stock Actual: {stockActual}";
         }
 
         private void LimpiarCampos()
@@ -125,6 +127,12 @@ namespace PanaderoApp.Forms
 
             RegistrarMovimiento("Entrada", cantidad, fechaVencimiento, txtComentario.Text);
             MessageBox.Show("Movimiento de entrada registrado.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            if (dgvProductos.SelectedRows.Count > 0 && dgvProductos.SelectedRows[0].DataBoundItem is Productos producto)
+            {
+                ActualizarStockActual(producto.Id);
+            }
+
             LimpiarCampos();
             CargarProductos();
         }
@@ -159,8 +167,12 @@ namespace PanaderoApp.Forms
 
             DateTime fechaVencimiento = dtpFechaVencimiento.Value.Date;
 
-            RegistrarMovimiento("Salida", cantidad, fechaVencimiento, txtComentario.Text);
+            RegistrarMovimiento("Salida", -cantidad, fechaVencimiento, txtComentario.Text);
             MessageBox.Show("Movimiento de salida registrado.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            // Actualizar label stock después de la salida
+            ActualizarStockActual(producto.Id);
+
             LimpiarCampos();
             CargarProductos();
         }

@@ -61,7 +61,7 @@ namespace PanaderoApp.Controllers
                             // Insertar detalles y descontar stock para cada producto
                             foreach (var detalle in venta.Detalle)
                             {
-                                // Insertar detalle de venta
+                                // Insertar detalle de venta (el SP sp_InsertarDetalleVenta ya inserta el movimiento de salida)
                                 using (SqlCommand cmdDetalle = new SqlCommand("sp_InsertarDetalleVenta", con, tran))
                                 {
                                     cmdDetalle.CommandType = CommandType.StoredProcedure;
@@ -72,18 +72,6 @@ namespace PanaderoApp.Controllers
 
                                     cmdDetalle.ExecuteNonQuery();
                                 }
-
-                                // Registrar salida en StockReventa como "Vendido"
-                                using (SqlCommand cmdStock = new SqlCommand("InsertarStockReventaPorVenta", con, tran))
-                                {
-                                    cmdStock.CommandType = CommandType.StoredProcedure;
-                                    cmdStock.Parameters.AddWithValue("@ProductoId", detalle.ProductoId);
-                                    cmdStock.Parameters.AddWithValue("@Cantidad", detalle.Cantidad);
-                                    cmdStock.Parameters.AddWithValue("@Comentario", "Vendido"); // Esto asegura que no será NULL
-
-                                    cmdStock.ExecuteNonQuery();
-                                }
-
                             }
 
                             tran.Commit();
@@ -99,6 +87,7 @@ namespace PanaderoApp.Controllers
                 }
             }
         }
+
 
         /// <summary>
         /// Obtiene una venta y su detalle por ID.

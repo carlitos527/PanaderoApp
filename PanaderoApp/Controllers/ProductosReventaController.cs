@@ -145,26 +145,18 @@ namespace PanaderoApp.Controllers
 
         public decimal ObtenerStockActual(int productoId)
         {
-            decimal entradas = 0, salidas = 0;
-
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                string queryEntradas = "SELECT ISNULL(SUM(Cantidad), 0) FROM StockReventa WHERE ProductoId = @id AND TipoMovimiento = 'Entrada'";
-                string querySalidas = "SELECT ISNULL(SUM(Cantidad), 0) FROM StockReventa WHERE ProductoId = @id AND TipoMovimiento = 'Salida'";
-
-                SqlCommand cmdEntradas = new SqlCommand(queryEntradas, con);
-                cmdEntradas.Parameters.AddWithValue("@id", productoId);
-
-                SqlCommand cmdSalidas = new SqlCommand(querySalidas, con);
-                cmdSalidas.Parameters.AddWithValue("@id", productoId);
-
-                con.Open();
-                entradas = (decimal)cmdEntradas.ExecuteScalar();
-                salidas = (decimal)cmdSalidas.ExecuteScalar();
+                string query = "SELECT ISNULL(SUM(Cantidad), 0) FROM StockReventa WHERE ProductoId = @productoId";
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@productoId", productoId);
+                    con.Open();
+                    return (decimal)cmd.ExecuteScalar();
+                }
             }
-
-            return entradas - salidas;
         }
+
     }
 
     internal class StockReventa
