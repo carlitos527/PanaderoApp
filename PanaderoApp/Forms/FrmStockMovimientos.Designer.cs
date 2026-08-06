@@ -111,7 +111,7 @@
             // 
             // numericCantidad
             // 
-            this.numericCantidad.DecimalPlaces = 2;
+            this.numericCantidad.DecimalPlaces = 0;
             this.numericCantidad.Location = new System.Drawing.Point(193, 103);
             this.numericCantidad.Maximum = new decimal(new int[] {
             1000000,
@@ -122,7 +122,7 @@
             1,
             0,
             0,
-            131072});
+            0});
             this.numericCantidad.Name = "numericCantidad";
             this.numericCantidad.Size = new System.Drawing.Size(79, 20);
             this.numericCantidad.TabIndex = 22;

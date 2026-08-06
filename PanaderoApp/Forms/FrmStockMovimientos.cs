@@ -111,7 +111,11 @@ namespace PanaderoApp.Forms
 
         private void LimpiarFormulario()
         {
-            comboIngredientes.SelectedIndex = 0;
+            // Evitar excepción si no hay elementos en el ComboBox
+            if (comboIngredientes.Items.Count > 0)
+                comboIngredientes.SelectedIndex = 0;
+            else
+                comboIngredientes.SelectedIndex = -1;
             radioEntrada.Checked = true;
             numericCantidad.Value = 1;
             txtComentario.Clear();
